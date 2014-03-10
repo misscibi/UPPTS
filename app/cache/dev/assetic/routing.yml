@@ -1,0 +1,5 @@
+_assetic:
+    resource: .
+    type: assetic
+_app:
+    resource: 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPPTS/app/config/routing_dev.yml'
