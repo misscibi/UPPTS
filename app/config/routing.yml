@@ -1,3 +1,15 @@
+jcc_main:
+    resource: "@JCCMainBundle/Resources/config/routing.yml"
+    prefix:   /
+
+jcc_account_management:
+    resource: "@JCCAccountManagementBundle/Resources/config/routing.yml"
+    prefix:   /
+
+jcc_forms:
+    resource: "@JCCFormsBundle/Resources/config/routing.yml"
+    prefix:   /
+
 acme_hello:
     resource: "@AcmeHelloBundle/Resources/config/routing.yml"
     prefix:   /

@@ -1,0 +1,7 @@
+parameters:
+#    jcc_forms.example.class: JCC\FormsBundle\Example
+
+services:
+#    jcc_forms.example:
+#        class: %jcc_forms.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

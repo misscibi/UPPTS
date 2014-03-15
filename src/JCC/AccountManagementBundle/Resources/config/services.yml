@@ -1,0 +1,7 @@
+parameters:
+#    jcc_account_management.example.class: JCC\AccountManagementBundle\Example
+
+services:
+#    jcc_account_management.example:
+#        class: %jcc_account_management.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

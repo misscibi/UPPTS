@@ -1,0 +1,7 @@
+parameters:
+#    jcc_main.example.class: JCC\MainBundle\Example
+
+services:
+#    jcc_main.example:
+#        class: %jcc_main.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

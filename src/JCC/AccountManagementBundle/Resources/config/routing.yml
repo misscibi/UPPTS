@@ -1,0 +1,7 @@
+jcc_account_form:
+    pattern: /account/{id}
+    defaults: {_controller: JCCAccountManagementBundle:Form:index, id: 0}
+
+jcc_account_management_homepage:
+    pattern:  /account/{name}
+    defaults: { _controller: JCCAccountManagementBundle:Default:index }
