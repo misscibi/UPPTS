@@ -1,0 +1,7 @@
+parameters:
+#    cb_project.example.class: CB\ProjectBundle\Example
+
+services:
+#    cb_project.example:
+#        class: %cb_project.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

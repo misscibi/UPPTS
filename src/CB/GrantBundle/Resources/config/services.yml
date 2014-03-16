@@ -1,0 +1,7 @@
+parameters:
+#    cb_grant.example.class: CB\GrantBundle\Example
+
+services:
+#    cb_grant.example:
+#        class: %cb_grant.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

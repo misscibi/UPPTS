@@ -1,0 +1,3 @@
+cb_account_homepage:
+    pattern:  /account/{id}
+    defaults: { _controller: CBAccountBundle:Default:index, id: 0 }
