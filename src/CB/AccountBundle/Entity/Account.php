@@ -3,7 +3,7 @@
 namespace CB\AccountBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Account
  *
@@ -152,7 +152,7 @@ class Account
      *
      * @ORM\OneToOne(targetEntity="CB\AccountBundle\Entity\ContactEmail")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="primary_email", referencedColumnName="email_address")
+     *   @ORM\JoinColumn(name="primary_email", referencedColumnName="email_ID")
      * })
      */
     private $primaryEmail;
@@ -183,14 +183,14 @@ class Account
     private $proponent;
     
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var ArrayCollection
      * 
-     * @ORM\OneToMany(targetEntity="ContactEmail", mappedBy="account")
-     * @ORM\JoinColumns({
-     *      @ORM\JoinColumn(name="account_ID", referencedColumnName="account_ID")
+     * @ORM\OneToMany(targetEntity="CB\AccountBundle\Entity\ContactEmail", mappedBy="account", cascade={"ALL"})
+     * @ORM\JoinColumns({   
+     *   @ORM\JoinColumn(name="account_ID", referencedColumnName="account_ID")
      * })
      */
-    private $contactEmail;
+    protected $contactEmail;
     
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -802,6 +802,7 @@ class Account
     public function addContactEmail(\CB\AccountBundle\Entity\ContactEmail $contactEmail)
     {
         $this->contactEmail[] = $contactEmail;
+        $contactEmail->setAccount($this);
 
         return $this;
     }

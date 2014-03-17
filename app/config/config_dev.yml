@@ -44,7 +44,7 @@ assetic:
     assets:
         bootstrap_css:
             inputs:
-                - %kernel.root_dir%/../vendor/twbs/bootstrap/less/bootstrap.less
+                - %kernel.root_dir%/Resources/less/bootstrap.less
                 - @BraincraftedBootstrapBundle/Resources/less/form.less
             filters:
                 - less
@@ -84,7 +84,7 @@ braincrafted_bootstrap:
         knp_menu: true
         knp_paginator: true
     customize:
-        variables_file: ~
+        variables_file: %kernel.root_dir%/Resources/less/variables.less
         bootstrap_output: %kernel.root_dir%/Resources/less/bootstrap.less
         bootstrap_template: BraincraftedBootstrapBundle:Bootstrap:bootstrap.less.twig
 

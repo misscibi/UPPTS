@@ -141,6 +141,19 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
             }
 
+            if (0 === strpos($pathinfo, '/js/b6ec94a')) {
+                // _assetic_b6ec94a
+                if ($pathinfo === '/js/b6ec94a.js') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'b6ec94a',  'pos' => NULL,  '_format' => 'js',  '_route' => '_assetic_b6ec94a',);
+                }
+
+                // _assetic_b6ec94a_0
+                if ($pathinfo === '/js/b6ec94a_part_1_emailAddress_1.js') {
+                    return array (  '_controller' => 'assetic.controller:render',  'name' => 'b6ec94a',  'pos' => 0,  '_format' => 'js',  '_route' => '_assetic_b6ec94a_0',);
+                }
+
+            }
+
         }
 
         if (0 === strpos($pathinfo, '/_')) {
@@ -251,44 +264,42 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // jcc_main_homepage
-        if (rtrim($pathinfo, '/') === '') {
-            if (substr($pathinfo, -1) !== '/') {
-                return $this->redirect($pathinfo.'/', 'jcc_main_homepage');
-            }
-
-            return array (  '_controller' => 'JCC\\MainBundle\\Controller\\DefaultController::indexAction',  '_route' => 'jcc_main_homepage',);
-        }
-
-        if (0 === strpos($pathinfo, '/account')) {
-            // jcc_account_form
-            if (preg_match('#^/account(?:/(?P<id>[^/]++))?$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'jcc_account_form')), array (  '_controller' => 'JCC\\AccountManagementBundle\\Controller\\FormController::indexAction',  'id' => 0,));
-            }
-
-            // jcc_account_management_homepage
-            if (preg_match('#^/account/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'jcc_account_management_homepage')), array (  '_controller' => 'JCC\\AccountManagementBundle\\Controller\\DefaultController::indexAction',));
-            }
-
-        }
-
         if (0 === strpos($pathinfo, '/hello')) {
-            // jcc_forms_homepage
+            // cb_admin_homepage
             if (preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'jcc_forms_homepage')), array (  '_controller' => 'JCC\\FormsBundle\\Controller\\DefaultController::indexAction',));
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'cb_admin_homepage')), array (  '_controller' => 'CB\\AdminBundle\\Controller\\DefaultController::indexAction',));
             }
 
-            // acme_hello_homepage
+            // cb_main_homepage
             if (preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'acme_hello_homepage')), array (  '_controller' => 'Acme\\HelloBundle\\Controller\\DefaultController::indexAction',));
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'cb_main_homepage')), array (  '_controller' => 'CB\\MainBundle\\Controller\\DefaultController::indexAction',));
             }
 
-            // hello
+            // cb_proponent_homepage
             if (preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'hello')), array (  '_controller' => 'Acme\\HelloBundle\\Controller\\HelloController::indexAction',));
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'cb_proponent_homepage')), array (  '_controller' => 'CB\\ProponentBundle\\Controller\\DefaultController::indexAction',));
             }
 
+            // cb_reviewer_homepage
+            if (preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'cb_reviewer_homepage')), array (  '_controller' => 'CB\\ReviewerBundle\\Controller\\DefaultController::indexAction',));
+            }
+
+            // cb_grant_homepage
+            if (preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'cb_grant_homepage')), array (  '_controller' => 'CB\\GrantBundle\\Controller\\DefaultController::indexAction',));
+            }
+
+            // cb_project_homepage
+            if (preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'cb_project_homepage')), array (  '_controller' => 'CB\\ProjectBundle\\Controller\\DefaultController::indexAction',));
+            }
+
+        }
+
+        // cb_account_form
+        if (0 === strpos($pathinfo, '/account') && preg_match('#^/account(?:/(?P<id>[^/]++))?$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'cb_account_form')), array (  '_controller' => 'CB\\AccountBundle\\Controller\\FormController::indexAction',  'id' => 0,));
         }
 
         // _welcome

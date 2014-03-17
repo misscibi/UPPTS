@@ -6,15 +6,41 @@
         {% block stylesheets %}
             <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
         {% endblock %}
+            
+        {% block customcss %}
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}
-            <h1>Hello, you are processed by the main bundle!</h1>
-        {% endblock %}
-        {% block javascripts %}
-            <script src="{{ asset('js/jquery.js') }}"></script>
-            <script src="{{ asset('js/bootstrap.js') }}"></script>
-        {% endblock %}
+        <div class="container-fluid">
+            {% block navbar %}
+            <div class="row">
+                
+            </div>
+            {% endblock %}
+
+            {% block body %}
+            <div class="row">
+                <div class="col-md-12">
+                <h1>Hello, you are processed by the main bundle!</h1>
+                </div>
+            </div>
+            {% endblock %}
+            
+            {% block footer %}
+            <div class="row">
+                
+            </div>
+            {% endblock %}
+            
+            {% block javascripts %}
+                <script src="{{ asset('js/jquery.js') }}"></script>
+                <script src="{{ asset('js/bootstrap.js') }}"></script>
+            {% endblock %}
+                
+            {% block customjs %}
+                
+            {% endblock %}
+        </div>
     </body>
 </html>

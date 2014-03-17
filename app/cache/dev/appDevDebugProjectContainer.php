@@ -302,10 +302,13 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getAssetic_AssetManagerService()
     {
+        $a = $this->get('templating.loader');
+
         $this->services['assetic.asset_manager'] = $instance = new \Assetic\Factory\LazyAssetManager($this->get('assetic.asset_factory'), array('config' => new \Symfony\Bundle\AsseticBundle\Factory\Loader\ConfigurationLoader(), 'twig' => new \Assetic\Factory\Loader\CachedFormulaLoader(new \Assetic\Extension\Twig\TwigFormulaLoader($this->get('twig')), new \Assetic\Cache\ConfigCache('C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/cache/dev/assetic/config'), true)));
 
-        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\ConfigurationResource(array('bootstrap_css' => array(0 => array(0 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/less/bootstrap.less', 1 => '@BraincraftedBootstrapBundle/Resources/less/form.less', 2 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/less/bootstrap.less', 3 => '@BraincraftedBootstrapBundle/Resources/less/form.less'), 1 => array(0 => 'less', 1 => 'cssrewrite', 2 => 'less', 3 => 'cssrewrite'), 2 => array('output' => 'css/bootstrap.css')), 'bootstrap_js' => array(0 => array(0 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/transition.js', 1 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/alert.js', 2 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/button.js', 3 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/carousel.js', 4 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/collapse.js', 5 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/dropdown.js', 6 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/modal.js', 7 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/tooltip.js', 8 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/popover.js', 9 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/scrollspy.js', 10 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/tab.js', 11 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/affix.js', 12 => '@BraincraftedBootstrapBundle/Resources/js/bc-bootstrap-collection.js', 13 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/transition.js', 14 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/alert.js', 15 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/button.js', 16 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/carousel.js', 17 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/collapse.js', 18 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/dropdown.js', 19 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/modal.js', 20 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/tooltip.js', 21 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/popover.js', 22 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/scrollspy.js', 23 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/tab.js', 24 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/affix.js', 25 => '@BraincraftedBootstrapBundle/Resources/js/bc-bootstrap-collection.js'), 1 => array(), 2 => array('output' => 'js/bootstrap.js')), 'jquery' => array(0 => array(0 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../components/jquery/jquery.js', 1 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../components/jquery/jquery.js'), 1 => array(), 2 => array('output' => 'js/jquery.js')))), 'config');
-        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($this->get('templating.loader'), '', 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/Resources/views', '/\\.[^.]+\\.twig$/'), 'twig');
+        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\ConfigurationResource(array('bootstrap_css' => array(0 => array(0 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/Resources/less/bootstrap.less', 1 => '@BraincraftedBootstrapBundle/Resources/less/form.less', 2 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/Resources/less/bootstrap.less', 3 => '@BraincraftedBootstrapBundle/Resources/less/form.less'), 1 => array(0 => 'less', 1 => 'cssrewrite', 2 => 'less', 3 => 'cssrewrite'), 2 => array('output' => 'css/bootstrap.css')), 'bootstrap_js' => array(0 => array(0 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/transition.js', 1 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/alert.js', 2 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/button.js', 3 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/carousel.js', 4 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/collapse.js', 5 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/dropdown.js', 6 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/modal.js', 7 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/tooltip.js', 8 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/popover.js', 9 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/scrollspy.js', 10 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/tab.js', 11 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/affix.js', 12 => '@BraincraftedBootstrapBundle/Resources/js/bc-bootstrap-collection.js', 13 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/transition.js', 14 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/alert.js', 15 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/button.js', 16 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/carousel.js', 17 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/collapse.js', 18 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/dropdown.js', 19 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/modal.js', 20 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/tooltip.js', 21 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/popover.js', 22 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/scrollspy.js', 23 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/tab.js', 24 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../vendor/twbs/bootstrap/js/affix.js', 25 => '@BraincraftedBootstrapBundle/Resources/js/bc-bootstrap-collection.js'), 1 => array(), 2 => array('output' => 'js/bootstrap.js')), 'jquery' => array(0 => array(0 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../components/jquery/jquery.js', 1 => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/../components/jquery/jquery.js'), 1 => array(), 2 => array('output' => 'js/jquery.js')))), 'config');
+        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\CoalescingDirectoryResource(array(0 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'CBAccountBundle', 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/Resources/CBAccountBundle/views', '/\\.[^.]+\\.twig$/'), 1 => new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, 'CBAccountBundle', 'C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\CB\\AccountBundle/Resources/views', '/\\.[^.]+\\.twig$/'))), 'twig');
+        $instance->addResource(new \Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource($a, '', 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/Resources/views', '/\\.[^.]+\\.twig$/'), 'twig');
 
         return $instance;
     }
@@ -735,8 +738,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getDoctrine_Orm_DefaultEntityManagerService()
     {
-        $a = new \Doctrine\Common\Cache\ArrayCache();
-        $a->setNamespace('sf2orm_default_f6f52be5b0a4bb81c49bd8d1a3c72bcef47f45799e71ff447708b577bdb05741');
+        $a = $this->get('annotation_reader');
 
         $b = new \Doctrine\Common\Cache\ArrayCache();
         $b->setNamespace('sf2orm_default_f6f52be5b0a4bb81c49bd8d1a3c72bcef47f45799e71ff447708b577bdb05741');
@@ -744,23 +746,32 @@ class appDevDebugProjectContainer extends Container
         $c = new \Doctrine\Common\Cache\ArrayCache();
         $c->setNamespace('sf2orm_default_f6f52be5b0a4bb81c49bd8d1a3c72bcef47f45799e71ff447708b577bdb05741');
 
-        $d = new \Doctrine\ORM\Mapping\Driver\DriverChain();
-        $d->addDriver(new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($this->get('annotation_reader'), array(0 => 'C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\Acme\\HelloBundle\\Entity')), 'Acme\\HelloBundle\\Entity');
+        $d = new \Doctrine\Common\Cache\ArrayCache();
+        $d->setNamespace('sf2orm_default_f6f52be5b0a4bb81c49bd8d1a3c72bcef47f45799e71ff447708b577bdb05741');
 
-        $e = new \Doctrine\ORM\Configuration();
-        $e->setEntityNamespaces(array('AcmeHelloBundle' => 'Acme\\HelloBundle\\Entity'));
-        $e->setMetadataCacheImpl($a);
-        $e->setQueryCacheImpl($b);
-        $e->setResultCacheImpl($c);
-        $e->setMetadataDriverImpl($d);
-        $e->setProxyDir('C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/cache/dev/doctrine/orm/Proxies');
-        $e->setProxyNamespace('Proxies');
-        $e->setAutoGenerateProxyClasses(true);
-        $e->setClassMetadataFactoryName('Doctrine\\ORM\\Mapping\\ClassMetadataFactory');
-        $e->setDefaultRepositoryClassName('Doctrine\\ORM\\EntityRepository');
-        $e->setNamingStrategy(new \Doctrine\ORM\Mapping\DefaultNamingStrategy());
+        $e = new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($a, array(0 => 'C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\CB\\AccountBundle\\Entity', 1 => 'C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\CB\\ProjectBundle\\Entity', 2 => 'C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\CB\\GrantBundle\\Entity', 3 => 'C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\CB\\ReviewerBundle\\Entity', 4 => 'C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\CB\\AdminBundle\\Entity'));
 
-        $this->services['doctrine.orm.default_entity_manager'] = $instance = call_user_func(array('Doctrine\\ORM\\EntityManager', 'create'), $this->get('doctrine.dbal.default_connection'), $e);
+        $f = new \Doctrine\ORM\Mapping\Driver\DriverChain();
+        $f->addDriver($e, 'CB\\AccountBundle\\Entity');
+        $f->addDriver($e, 'CB\\ProjectBundle\\Entity');
+        $f->addDriver($e, 'CB\\GrantBundle\\Entity');
+        $f->addDriver($e, 'CB\\ReviewerBundle\\Entity');
+        $f->addDriver($e, 'CB\\AdminBundle\\Entity');
+
+        $g = new \Doctrine\ORM\Configuration();
+        $g->setEntityNamespaces(array('CBAccountBundle' => 'CB\\AccountBundle\\Entity', 'CBProjectBundle' => 'CB\\ProjectBundle\\Entity', 'CBGrantBundle' => 'CB\\GrantBundle\\Entity', 'CBReviewerBundle' => 'CB\\ReviewerBundle\\Entity', 'CBAdminBundle' => 'CB\\AdminBundle\\Entity'));
+        $g->setMetadataCacheImpl($b);
+        $g->setQueryCacheImpl($c);
+        $g->setResultCacheImpl($d);
+        $g->setMetadataDriverImpl($f);
+        $g->setProxyDir('C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/cache/dev/doctrine/orm/Proxies');
+        $g->setProxyNamespace('Proxies');
+        $g->setAutoGenerateProxyClasses(true);
+        $g->setClassMetadataFactoryName('Doctrine\\ORM\\Mapping\\ClassMetadataFactory');
+        $g->setDefaultRepositoryClassName('Doctrine\\ORM\\EntityRepository');
+        $g->setNamingStrategy(new \Doctrine\ORM\Mapping\DefaultNamingStrategy());
+
+        $this->services['doctrine.orm.default_entity_manager'] = $instance = call_user_func(array('Doctrine\\ORM\\EntityManager', 'create'), $this->get('doctrine.dbal.default_connection'), $g);
 
         $this->get('doctrine.orm.default_manager_configurator')->configure($instance);
 
@@ -3029,7 +3040,7 @@ class appDevDebugProjectContainer extends Container
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\HttpKernelExtension($this->get('fragment.handler')));
         $instance->addExtension(new \Symfony\Bridge\Twig\Extension\FormExtension(new \Symfony\Bridge\Twig\Form\TwigRenderer(new \Symfony\Bridge\Twig\Form\TwigRendererEngine(array(0 => 'form_div_layout.html.twig', 1 => 'BraincraftedBootstrapBundle:Form:bootstrap.html.twig', 2 => 'BraincraftedBootstrapBundle:Form:bootstrap.html.twig')), $this->get('form.csrf_provider', ContainerInterface::NULL_ON_INVALID_REFERENCE))));
         $instance->addExtension(new \Twig_Extension_Debug());
-        $instance->addExtension(new \Symfony\Bundle\AsseticBundle\Twig\AsseticExtension($this->get('assetic.asset_factory'), $this->get('templating.name_parser'), true, array(), array(), $this->get('assetic.value_supplier.default', ContainerInterface::NULL_ON_INVALID_REFERENCE)));
+        $instance->addExtension(new \Symfony\Bundle\AsseticBundle\Twig\AsseticExtension($this->get('assetic.asset_factory'), $this->get('templating.name_parser'), true, array(), array(0 => 'CBAccountBundle'), $this->get('assetic.value_supplier.default', ContainerInterface::NULL_ON_INVALID_REFERENCE)));
         $instance->addExtension(new \Doctrine\Bundle\DoctrineBundle\Twig\DoctrineExtension());
         $instance->addExtension($this->get('braincrafted_bootstrap.twig.icon_extension'));
         $instance->addExtension($this->get('braincrafted_bootstrap.twig.label_extension'));
@@ -3085,10 +3096,13 @@ class appDevDebugProjectContainer extends Container
         $instance->addPath('C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\vendor\\symfony\\swiftmailer-bundle\\Symfony\\Bundle\\SwiftmailerBundle/Resources/views', 'Swiftmailer');
         $instance->addPath('C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\vendor\\doctrine\\doctrine-bundle\\Doctrine\\Bundle\\DoctrineBundle/Resources/views', 'Doctrine');
         $instance->addPath('C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\vendor\\braincrafted\\bootstrap-bundle\\Braincrafted\\Bundle\\BootstrapBundle/Resources/views', 'BraincraftedBootstrap');
-        $instance->addPath('C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\Acme\\HelloBundle/Resources/views', 'AcmeHello');
-        $instance->addPath('C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\JCC\\FormsBundle/Resources/views', 'JCCForms');
-        $instance->addPath('C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\JCC\\AccountManagementBundle/Resources/views', 'JCCAccountManagement');
-        $instance->addPath('C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\JCC\\MainBundle/Resources/views', 'JCCMain');
+        $instance->addPath('C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\CB\\AccountBundle/Resources/views', 'CBAccount');
+        $instance->addPath('C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\CB\\ProjectBundle/Resources/views', 'CBProject');
+        $instance->addPath('C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\CB\\GrantBundle/Resources/views', 'CBGrant');
+        $instance->addPath('C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\CB\\ReviewerBundle/Resources/views', 'CBReviewer');
+        $instance->addPath('C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\CB\\ProponentBundle/Resources/views', 'CBProponent');
+        $instance->addPath('C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\CB\\MainBundle/Resources/views', 'CBMain');
+        $instance->addPath('C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\CB\\AdminBundle/Resources/views', 'CBAdmin');
         $instance->addPath('C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\src\\Acme\\DemoBundle/Resources/views', 'AcmeDemo');
         $instance->addPath('C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\WebProfilerBundle/Resources/views', 'WebProfiler');
         $instance->addPath('C:\\Users\\Christabel\\SkyDrive\\Documents\\Computer Science\\CS 198\\UP-RIS Web App\\UPRPTS\\vendor\\sensio\\distribution-bundle\\Sensio\\Bundle\\DistributionBundle/Resources/views', 'SensioDistribution');
@@ -3575,10 +3589,13 @@ class appDevDebugProjectContainer extends Container
                 'DoctrineBundle' => 'Doctrine\\Bundle\\DoctrineBundle\\DoctrineBundle',
                 'SensioFrameworkExtraBundle' => 'Sensio\\Bundle\\FrameworkExtraBundle\\SensioFrameworkExtraBundle',
                 'BraincraftedBootstrapBundle' => 'Braincrafted\\Bundle\\BootstrapBundle\\BraincraftedBootstrapBundle',
-                'AcmeHelloBundle' => 'Acme\\HelloBundle\\AcmeHelloBundle',
-                'JCCFormsBundle' => 'JCC\\FormsBundle\\JCCFormsBundle',
-                'JCCAccountManagementBundle' => 'JCC\\AccountManagementBundle\\JCCAccountManagementBundle',
-                'JCCMainBundle' => 'JCC\\MainBundle\\JCCMainBundle',
+                'CBAccountBundle' => 'CB\\AccountBundle\\CBAccountBundle',
+                'CBProjectBundle' => 'CB\\ProjectBundle\\CBProjectBundle',
+                'CBGrantBundle' => 'CB\\GrantBundle\\CBGrantBundle',
+                'CBReviewerBundle' => 'CB\\ReviewerBundle\\CBReviewerBundle',
+                'CBProponentBundle' => 'CB\\ProponentBundle\\CBProponentBundle',
+                'CBMainBundle' => 'CB\\MainBundle\\CBMainBundle',
+                'CBAdminBundle' => 'CB\\AdminBundle\\CBAdminBundle',
                 'AcmeDemoBundle' => 'Acme\\DemoBundle\\AcmeDemoBundle',
                 'WebProfilerBundle' => 'Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle',
                 'SensioDistributionBundle' => 'Sensio\\Bundle\\DistributionBundle\\SensioDistributionBundle',
@@ -3999,7 +4016,7 @@ class appDevDebugProjectContainer extends Container
             ),
             'assetic.cache_dir' => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/cache/dev/assetic',
             'assetic.bundles' => array(
-
+                0 => 'CBAccountBundle',
             ),
             'assetic.twig_extension.class' => 'Symfony\\Bundle\\AsseticBundle\\Twig\\AsseticExtension',
             'assetic.twig_formula_loader.class' => 'Assetic\\Extension\\Twig\\TwigFormulaLoader',
@@ -4015,7 +4032,7 @@ class appDevDebugProjectContainer extends Container
 
             ),
             'assetic.java.bin' => 'C:\\WINDOWS\\system32\\java.EXE',
-            'assetic.node.bin' => '/usr/bin/node',
+            'assetic.node.bin' => 'C:\\Program Files\\nodejs\\\\node.EXE',
             'assetic.ruby.bin' => '/usr/bin/ruby',
             'assetic.sass.bin' => '/usr/bin/sass',
             'assetic.filter.cssrewrite.class' => 'Assetic\\Filter\\CssRewriteFilter',
@@ -4111,7 +4128,7 @@ class appDevDebugProjectContainer extends Container
             'braincrafted_bootstrap.twig.form_extension.class' => 'Braincrafted\\Bundle\\BootstrapBundle\\Twig\\BootstrapFormExtension',
             'braincrafted_bootstrap.flash.class' => 'Braincrafted\\Bundle\\BootstrapBundle\\Session\\FlashMessage',
             'braincrafted_bootstrap.customize' => array(
-                'variables_file' => NULL,
+                'variables_file' => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/Resources/less/variables.less',
                 'bootstrap_output' => 'C:/Users/Christabel/SkyDrive/Documents/Computer Science/CS 198/UP-RIS Web App/UPRPTS/app/Resources/less/bootstrap.less',
                 'bootstrap_template' => 'BraincraftedBootstrapBundle:Bootstrap:bootstrap.less.twig',
             ),

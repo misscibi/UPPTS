@@ -1,16 +1,28 @@
-jcc_main:
-    resource: "@JCCMainBundle/Resources/config/routing.yml"
+cb_admin:
+    resource: "@CBAdminBundle/Resources/config/routing.yml"
     prefix:   /
 
-jcc_account_management:
-    resource: "@JCCAccountManagementBundle/Resources/config/routing.yml"
+cb_main:
+    resource: "@CBMainBundle/Resources/config/routing.yml"
     prefix:   /
 
-jcc_forms:
-    resource: "@JCCFormsBundle/Resources/config/routing.yml"
+cb_proponent:
+    resource: "@CBProponentBundle/Resources/config/routing.yml"
     prefix:   /
 
-acme_hello:
-    resource: "@AcmeHelloBundle/Resources/config/routing.yml"
+cb_reviewer:
+    resource: "@CBReviewerBundle/Resources/config/routing.yml"
+    prefix:   /
+
+cb_grant:
+    resource: "@CBGrantBundle/Resources/config/routing.yml"
+    prefix:   /
+
+cb_project:
+    resource: "@CBProjectBundle/Resources/config/routing.yml"
+    prefix:   /
+
+cb_account:
+    resource: "@CBAccountBundle/Resources/config/routing.yml"
     prefix:   /
 

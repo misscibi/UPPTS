@@ -11,27 +11,45 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  */
 class ContactEmail
-{
+{    
+    /**
+     * @var integer
+     * 
+     * @ORM\Column(name="email_ID", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $emailID;
+    
     /**
      * @var string
      *
      * @ORM\Column(name="email_address", type="string", length=255)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $emailAddress;
 
     /**
      * @var \CB\AccountBundle\Entity\Account
      *
-     * @ORM\ManyToOne(targetEntity="CB\AccountBundle\Entity\Account")
+     * @ORM\ManyToOne(targetEntity="CB\AccountBundle\Entity\Account", inversedBy="contactEmail")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="account_ID", referencedColumnName="account_ID")
      * })
      */
-    private $account;
+    protected $account;
 
+    /**
+     * Set emailAddress
+     *
+     * @param string $emailAddress
+     * @return ContactEmail
+     */
+    public function setEmailAddress($emailAddress)
+    {
+        $this->emailAddress = $emailAddress;
 
+        return $this;
+    }
 
     /**
      * Get emailAddress
@@ -64,5 +82,28 @@ class ContactEmail
     public function getAccount()
     {
         return $this->account;
+    }
+
+    /**
+     * Set emailID
+     *
+     * @param integer $emailID
+     * @return ContactEmail
+     */
+    public function setEmailID($emailID)
+    {
+        $this->emailID = $emailID;
+
+        return $this;
+    }
+
+    /**
+     * Get emailID
+     *
+     * @return integer 
+     */
+    public function getEmailID()
+    {
+        return $this->emailID;
     }
 }
