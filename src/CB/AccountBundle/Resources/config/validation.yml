@@ -1,0 +1,4 @@
+## YAML Template.
+CB\AccountBundle\Entity\Account:
+    properties:
+        

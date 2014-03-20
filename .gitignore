@@ -216,3 +216,6 @@ pip-log.txt
 /nbproject/private/
 /web/js/
 /web/css/
+!/bin/
+/app/cache/
+/src/CB/TestBundle/

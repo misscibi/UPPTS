@@ -24,14 +24,22 @@ class AccountType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('firstName', 'text')
-                ->add('middleName', 'text')
+                ->add('middleName', 'text', array(
+                                        'required' => false,
+                ))
                 ->add('lastName', 'text')
                 ->add('birthdate', 'date')
                 ->add('password', 'password')
-                ->add('contactEmail', 'collection', array(
-                        'type' => new ContactEmailType(),
-                        'allow_add' => true,
-                        'by_reference' => false,
+                ->add('contactEmail', 'bootstrap_collection', array(
+                                        'label' => 'Email Address',
+                                        'type' => new ContactEmailType(),
+                                        'by_reference' => false,
+                                        'allow_add' => true,
+                                        'allow_delete' => true,
+                                        'add_button_text' => 'Add Email',
+                                        'delete_button_text' => 'Delete Email',
+                                        'sub_widget_col' => 9,
+                                        'button_col' => 3
                     ))
                 ->add('save', 'submit');
     }

@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new CB\ProponentBundle\CBProponentBundle(),
             new CB\MainBundle\CBMainBundle(),
             new CB\AdminBundle\CBAdminBundle(),
+            new CB\TestBundle\CBTestBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

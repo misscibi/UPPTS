@@ -14,6 +14,11 @@ var $newLinkLi = $('<div></div>').append($addTagLink);
 jQuery(document).ready(function() {
     // Get the ul that holds the collection of tags
     $collectionHolder = $('div#account_contactEmail');
+    
+    // add a delete link to all of the existing tag form li elements
+    $collectionHolder.find('>.form-group').slice(1).each(function() {
+        addTagFormDeleteLink($(this));
+    });
 
     // add the "add a tag" anchor and li to the tags ul
     $collectionHolder.append($newLinkLi);
@@ -47,6 +52,22 @@ jQuery(document).ready(function() {
         // Display the form in the page in an li, before the "Add a tag" link li
         var $newFormLi = $('<div></div>').append(newForm);
         $newLinkLi.before($newFormLi);
+        
+        // add a delete link to the new form
+        addTagFormDeleteLink($newFormLi);
+    }
+    
+    function addTagFormDeleteLink($tagFormLi) {
+        var $removeFormA = $('<a href="#">delete this email</a>');
+        $tagFormLi.append($removeFormA);
+
+        $removeFormA.on('click', function(e) {
+            // prevent the link from creating a "#" on the URL
+            e.preventDefault();
+
+            // remove the li for the tag form
+            $tagFormLi.remove();
+        });
     }
     
 });

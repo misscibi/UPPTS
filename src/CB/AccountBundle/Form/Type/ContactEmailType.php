@@ -21,7 +21,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class ContactEmailType extends AbstractType {
     
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('emailAddress', 'email');
+        $builder->add('emailAddress', 'email', array(
+                                      'label' => false,
+                                      'attr' => array('widget_col'=>12)
+            ));
     }
     
     public function setDefaultOptions(OptionsResolverInterface $resolver) {

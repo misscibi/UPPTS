@@ -814,7 +814,7 @@ class Account
      */
     public function removeContactEmail(\CB\AccountBundle\Entity\ContactEmail $contactEmail)
     {
-        $this->contactEmail->removeElement($contactEmail);
+        $this->contactEmail->removeElement($contactEmail);       
     }
 
     /**
