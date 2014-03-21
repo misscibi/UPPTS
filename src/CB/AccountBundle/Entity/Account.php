@@ -4,11 +4,14 @@ namespace CB\AccountBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * Account
  *
- * @ORM\Table(name="account", indexes={@ORM\Index(name="fk_Account_Contact_Email1_idx", columns={"primary_email"})})
+ * @ORM\Table(name="account")
  * @ORM\Entity
+ * )
  */
 class Account
 {
@@ -148,12 +151,17 @@ class Account
     private $updateTimestamp;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="primary_email", type="integer", nullable=true)
+     */
+    private $primaryEmailAddress;
+    
+    /**
      * @var \CB\AccountBundle\Entity\ContactEmail
      *
-     * @ORM\OneToOne(targetEntity="CB\AccountBundle\Entity\ContactEmail")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="primary_email", referencedColumnName="email_ID")
-     * })
+     * @ORM\OneToOne(targetEntity="CB\AccountBundle\Entity\ContactEmail", cascade={"ALL"})
+     * @ORM\JoinColumn(name="primary_email", referencedColumnName="email_ID")
      */
     private $primaryEmail;
 
@@ -674,13 +682,18 @@ class Account
     /**
      * Set primaryEmail
      *
-     * @param \CB\AccountBundle\Entity\ContactEmail $primaryEmail
+     * @param \CB\AccountBundle\Entity\ContactEmail
      * @return Account
      */
-    public function setPrimaryEmail(\CB\AccountBundle\Entity\ContactEmail $primaryEmail = null)
+    public function setPrimaryEmail(\CB\AccountBundle\Entity\ContactEmail $primaryEmail)
     {
+        if(!$this->contactEmail->contains($primaryEmail)) {
+            $this->addContactEmail($primaryEmail);                        
+        }
+        
+        $primaryEmail->setAccount($this);
         $this->primaryEmail = $primaryEmail;
-
+      
         return $this;
     }
 
@@ -957,5 +970,28 @@ class Account
     public function getAcademicExperience()
     {
         return $this->academicExperience;
+    }
+
+    /**
+     * Set primaryEmailAddress
+     *
+     * @param integer $primaryEmailAddress
+     * @return Account
+     */
+    public function setPrimaryEmailAddress($primaryEmailAddress)
+    {
+        $this->primaryEmailAddress = $primaryEmailAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get primaryEmailAddress
+     *
+     * @return integer 
+     */
+    public function getPrimaryEmailAddress()
+    {
+        return $this->primaryEmailAddress;
     }
 }

@@ -3,12 +3,16 @@
 namespace CB\AccountBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * ContactEmail
  *
- * @ORM\Table(name="contact_email", indexes={@ORM\Index(name="fk_Contact_Email_Account1", columns={"account_ID"})})
+ * @ORM\Table(name="contact_email")
  * @ORM\Entity
+ * @UniqueEntity(fields={"emailAddress"}, 
+ *              message="Someone already registered that email address or you have it in one of your alternate email addresses. Try deleting your alternate or enter another email address."
+ * )
  */
 class ContactEmail
 {    
@@ -31,7 +35,7 @@ class ContactEmail
     /**
      * @var \CB\AccountBundle\Entity\Account
      *
-     * @ORM\ManyToOne(targetEntity="CB\AccountBundle\Entity\Account", inversedBy="contactEmail")
+     * @ORM\ManyToOne(targetEntity="CB\AccountBundle\Entity\Account", inversedBy="contactEmail", cascade={"ALL"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="account_ID", referencedColumnName="account_ID")
      * })

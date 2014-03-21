@@ -27,7 +27,6 @@ class FormController extends Controller {
     {
         $account = new Account();
         
-        $account->addContactEmail(new ContactEmail());
         $form = $this->createForm(new AccountType(), $account);
         
         $form->handleRequest($request);
@@ -55,6 +54,8 @@ class FormController extends Controller {
         }
         
         $oldContactEmails = new ArrayCollection();
+        
+        $account->removeContactEmail($account->getPrimaryEmail());
         
         foreach( $account->getContactEmail() as $email ) {
             $oldContactEmails->add($email);

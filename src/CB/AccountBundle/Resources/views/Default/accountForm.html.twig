@@ -1,17 +1,5 @@
 {% extends '::base.html.twig' %}
 
-{#% block customcss %}
-    {% stylesheets '@CBAccountBundle/Resources/css/LabelCollection.css' %}
-        <link rel="stylesheet" type="text/css" href="{{ asset_url }}">
-    {% endstylesheets %}
-{% endblock %}
-
-{% block customjs %}
-    {% javascripts '@CBAccountBundle/Resources/js/AccountForm/*' %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock %#}
-
 {% block title %} Register {% endblock %}
 
 {% block body %}
@@ -21,22 +9,6 @@
             <div class="col-lg-offset-2">
                 {{ form_errors(form) }}
             </div>
-        </div>
-           
-        <div class="row">    
-            {{ form_row(form.firstName) }}
-            {{ form_row(form.middleName) }}
-            {{ form_row(form.lastName) }}
-            {{ form_row(form.birthdate) }}
-            {{ form_row(form.password) }}
-            {{ form_row(form.contactEmail) }}
-            <!--div class="form-group row"
-                <div class="col-lg-10">
-                    <div class="account_contactEmail" data-prototype="&lt;div class=&quot;form-group row&quot;&gt;&lt;div class=&quot;col-lg-10&quot;&gt;&lt;div id=&quot;account_contactEmail___name__&quot;&gt;&lt;div class=&quot;form-group row&quot;&gt;&lt;div class=&quot;col-lg-10&quot;&gt;&lt;input type=&quot;email&quot; id=&quot;account_contactEmail___name___emailAddress&quot; name=&quot;account[contactEmail][__name__][emailAddress]&quot; required=&quot;required&quot;    class=&quot;form-control&quot; &gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;">
-                    </div>
-                </div>
-            </div-->
-            
         </div>
 
     {{ form_end(form) }}
