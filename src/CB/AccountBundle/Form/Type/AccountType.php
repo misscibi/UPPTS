@@ -50,6 +50,7 @@ class AccountType extends AbstractType {
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'CB\AccountBundle\Entity\Account',
+            'cascade_validation' => true,
         ));
     }
     
