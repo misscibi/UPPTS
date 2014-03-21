@@ -51,7 +51,7 @@ assetic:
     assets:
         bootstrap_css:
             inputs:
-                - %kernel.root_dir%/Resources/less/bootstrap.less
+                - %kernel.root_dir%/Resources/less/build.less
                 - @BraincraftedBootstrapBundle/Resources/less/form.less
             filters:
                 - less
