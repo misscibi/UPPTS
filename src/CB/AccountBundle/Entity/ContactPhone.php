@@ -9,15 +9,25 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="contact_phone", indexes={@ORM\Index(name="fk_Contact_Phone_Account1", columns={"account_ID"})})
  * @ORM\Entity
+ * @Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity(fields={"phoneNumber"}, 
+ *              message="Someone already registered that phone number. Try another?"
+ * )
  */
 class ContactPhone
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="phone_number", type="integer")
+     * @ORM\Column(name="phone_number_ID", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $phoneNumberID;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone_number", type="string", length=50, unique=true)
      */
     private $phoneNumber;
 
@@ -37,18 +47,6 @@ class ContactPhone
      * })
      */
     private $account;
-
-
-
-    /**
-     * Get phoneNumber
-     *
-     * @return integer 
-     */
-    public function getPhoneNumber()
-    {
-        return $this->phoneNumber;
-    }
 
     /**
      * Set type
@@ -94,5 +92,38 @@ class ContactPhone
     public function getAccount()
     {
         return $this->account;
+    }
+
+    /**
+     * Get phoneNumberID
+     *
+     * @return integer 
+     */
+    public function getPhoneNumberID()
+    {
+        return $this->phoneNumberID;
+    }
+
+    /**
+     * Set phoneNumber
+     *
+     * @param string $phoneNumber
+     * @return ContactPhone
+     */
+    public function setPhoneNumber($phoneNumber)
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get phoneNumber
+     *
+     * @return string 
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phoneNumber;
     }
 }

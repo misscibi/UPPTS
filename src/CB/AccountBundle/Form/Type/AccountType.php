@@ -36,13 +36,26 @@ class AccountType extends AbstractType {
                 ->add('contactEmail', 'bootstrap_collection', array(
                                         'label' => 'Alternate Email Address',
                                         'type' => new ContactEmailType(),
+                                        'add_button_text' => 'Add Email Address',
+                                        'sub_widget_col' => 10,
+                                        'button_col' => 2,
+                                        'delete_button_text' => 'Delete',
                                         'by_reference' => false,
                                         'allow_add' => true,
                                         'allow_delete' => true,
-                                        'add_button_text' => 'Add Email',
-                                        'delete_button_text' => 'Delete',
+                    ))
+                ->add('contactPhone', 'bootstrap_collection', array(
+                                        'label' => 'Phone Number',
+                                        'type' => new ContactPhoneType(),
+                                        'add_button_text' => 'Add Phone Number',
                                         'sub_widget_col' => 10,
-                                        'button_col' => 2
+                                        'button_col' => 2,
+                                        'delete_button_text' => 'Delete',
+                                        'prototype_name'     => 'inlinep',
+                                        'options' => array('attr' => array('style'=>'inline')),
+                                        'by_reference' => false,
+                                        'allow_add' => true,
+                                        'allow_delete' => true,
                     ))
                 ->add('save', 'submit');
     }

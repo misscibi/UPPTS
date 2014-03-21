@@ -4,7 +4,6 @@ namespace CB\AccountBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Account
@@ -203,7 +202,7 @@ class Account
     /**
      * @var \Doctrine\Common\Collections\Collection
      * 
-     * @ORM\OneToMany(targetEntity="ContactPhone", mappedBy="account")
+     * @ORM\OneToMany(targetEntity="ContactPhone", mappedBy="account", cascade={"ALL"})
      * @ORM\JoinColumns({
      *      @ORM\JoinColumn(name="account_ID", referencedColumnName="account_ID")
      * })
@@ -849,6 +848,7 @@ class Account
     public function addContactPhone(\CB\AccountBundle\Entity\ContactPhone $contactPhone)
     {
         $this->contactPhone[] = $contactPhone;
+        $contactPhone->setAccount($this);
 
         return $this;
     }

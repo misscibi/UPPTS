@@ -12,7 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 use CB\AccountBundle\Entity\Account;
-use CB\AccountBundle\Entity\ContactEmail;
 use CB\AccountBundle\Form\Type\AccountType;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -52,31 +51,22 @@ class FormController extends Controller {
         if(!$account) {
             throw $this->createNotFoundException('No account found with ID '.$id);
         }
-        
-        $oldContactEmails = new ArrayCollection();
-        
+                
         $account->removeContactEmail($account->getPrimaryEmail());
         
-        foreach( $account->getContactEmail() as $email ) {
-            $oldContactEmails->add($email);
-        }
+        $oldContactEmails = new ArrayCollection();
+        $oldContactPhones = new ArrayCollection();
+        
+        $this->addToOldCollection($oldContactEmails, $account->getContactEmail());
+        $this->addToOldCollection($oldContactPhones, $account->getContactPhone());
         
         $editForm = $this->createForm(new AccountType(), $account);
         $editForm->handleRequest($request);
         
         if($editForm->isValid()) {
-            // remove the relationship between email and account
-            foreach($oldContactEmails as $email) {
-                
-                // check the old collection with the one recently submitted
-                if (false === $account->getContactEmail()->contains($email)) {
-                    // remove the Account from the Email
-                    //$email->getAccount()->removeElement($account);
-                    $email->setAccount(null);
-                    $em->persist($email);
-                    $em->remove($email); // remove from the database!
-                }               
-            }
+            $this->removeEntityManyToOne($oldContactEmails, $account->getContactEmail(), $em, true);
+            $this->removeEntityManyToOne($oldContactPhones, $account->getContactPhone(), $em, true);
+            
             
             $em->persist($account);
             $em->flush();
@@ -86,6 +76,27 @@ class FormController extends Controller {
             return $this->render('CBAccountBundle:Default:accountForm.html.twig', array(
                 'form' => $editForm->createView(),
             ));
+        }
+    }
+    
+    function addToOldCollection($oldValues, $newValues) {
+        foreach($newValues as $value) {
+            $oldValues->add($value);
+        }
+    }
+    
+    function removeEntityManyToOne($oldValues, $newValues, $em, $toBeRemoved ) {
+        foreach($oldValues as $value) {
+                // check the old collection with the one recently submitted
+            if (false === $newValues->contains($value)) {
+                // remove the Account from the Email
+                //$email->getAccount()->removeElement($account);
+                $value->setAccount(null);
+                $em->persist($value);
+                if($toBeRemoved) {
+                    $em->remove($value); // remove from the database!
+                }
+            }               
         }
     }
 }
