@@ -9,6 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="employee", indexes={@ORM\Index(name="fk_Employee_Account1_idx", columns={"account_ID"})})
  * @ORM\Entity
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="typeOfEmployee", type="string")
+ * @ORM\DiscriminatorMap({"employee" = "Employee", "universityEmployee" = "UniversityEmployee"})
  */
 class Employee
 {
@@ -99,13 +102,6 @@ class Employee
     private $endDate;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="is_university_employee", type="boolean", nullable=false)
-     */
-    private $isUniversityEmployee;
-
-    /**
      * @var \CB\AccountBundle\Entity\Account
      *
      * @ORM\ManyToOne(targetEntity="CB\AccountBundle\Entity\Account")
@@ -114,16 +110,6 @@ class Employee
      * })
      */
     private $account;
-    
-    /**
-     * @var \CB\AccountBundle\Entity\UniversityEmployee
-     * 
-     * @ORM\OneToOne(targetEntity="UniversityEmployee", mappedBy="employee")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="employment_ID", referencedColumnName="employment_ID")
-     * })
-     */
-    private $universityEmployee;
 
     /**
      * Get employmentId
@@ -432,28 +418,5 @@ class Employee
     public function getAccount()
     {
         return $this->account;
-    }
-
-    /**
-     * Set universityEmployee
-     *
-     * @param \CB\AccountBundle\Entity\UniversityEmployee $universityEmployee
-     * @return Employee
-     */
-    public function setUniversityEmployee(\CB\AccountBundle\Entity\UniversityEmployee $universityEmployee = null)
-    {
-        $this->universityEmployee = $universityEmployee;
-
-        return $this;
-    }
-
-    /**
-     * Get universityEmployee
-     *
-     * @return \CB\AccountBundle\Entity\UniversityEmployee 
-     */
-    public function getUniversityEmployee()
-    {
-        return $this->universityEmployee;
     }
 }

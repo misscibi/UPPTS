@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 use CB\AccountBundle\Entity\Account;
 use CB\AccountBundle\Form\Type\AccountType;
+use CB\AccountBundle\Form\Model\AccountRegistration;
+use CB\AccountBundle\Form\Type\AccountRegistrationType;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -24,20 +26,20 @@ class FormController extends Controller {
     //put your code here
     public function indexAction (Request $request)
     {
-        $account = new Account();
+        $registration = new AccountRegistration();
         
-        $form = $this->createForm(new AccountType(), $account);
+        $form = $this->createForm(new AccountRegistrationType(), $registration);
         
         $form->handleRequest($request);
         
         if($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($account);
+            $em->persist($registration->getAccount());
             $em->flush();
             
             return $this->redirect($this->generateUrl('cb_main_homepage'));
         } else {
-            return $this->render('CBAccountBundle:Default:accountForm.html.twig', array(
+            return $this->render('CBAccountBundle:Default:AccountRegistrationForm.html.twig', array(
                 'form' => $form->createView(),
             ));
         }
@@ -56,16 +58,25 @@ class FormController extends Controller {
         
         $oldContactEmails = new ArrayCollection();
         $oldContactPhones = new ArrayCollection();
+        $oldEducation = new ArrayCollection();
+        $oldEmployee = new ArrayCollection();
+        $oldAcademicExperience = new ArrayCollection();
         
         $this->addToOldCollection($oldContactEmails, $account->getContactEmail());
         $this->addToOldCollection($oldContactPhones, $account->getContactPhone());
+        $this->addToOldCollection($oldEducation, $account->getEducation());
+        $this->addToOldCollection($oldEmployee, $account->getEmployee());
+        $this->addToOldCollection($oldAcademicExperience, $account->getAcademicExperience());
         
-        $editForm = $this->createForm(new AccountType(), $account);
+        $editForm = $this->createForm(new AccountType(), $account)->add('Save', 'submit');
         $editForm->handleRequest($request);
         
         if($editForm->isValid()) {
             $this->removeEntityManyToOne($oldContactEmails, $account->getContactEmail(), $em, true);
             $this->removeEntityManyToOne($oldContactPhones, $account->getContactPhone(), $em, true);
+            $this->removeEntityManyToOne($oldEducation, $account->getEducation(), $em, true);
+            $this->removeEntityManyToOne($oldEmployee, $account->getEmployee(), $em, true);
+            $this->removeEntityManyToOne($oldAcademicExperience, $account->getAcademicExperience(), $em, true);
             
             
             $em->persist($account);
@@ -73,7 +84,7 @@ class FormController extends Controller {
 
             return $this->redirect($this->generateUrl('cb_main_homepage'));
         } else {
-            return $this->render('CBAccountBundle:Default:accountForm.html.twig', array(
+            return $this->render('CBAccountBundle:Default:AccountEditForm.html.twig', array(
                 'form' => $editForm->createView(),
             ));
         }

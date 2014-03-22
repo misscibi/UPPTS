@@ -212,7 +212,7 @@ class Account
     /**
      * @var \Doctrine\Common\Collections\Collection
      * 
-     * @ORM\OneToMany(targetEntity="Employee", mappedBy="account")
+     * @ORM\OneToMany(targetEntity="Employee", mappedBy="account", cascade={"ALL"})
      * @ORM\JoinColumns({
      *      @ORM\JoinColumn(name="account_ID", referencedColumnName="account_ID")
      * })
@@ -222,7 +222,7 @@ class Account
     /**
      * @var \Doctrine\Common\Collections\Collection
      * 
-     * @ORM\OneToMany(targetEntity="Education", mappedBy="account")
+     * @ORM\OneToMany(targetEntity="Education", mappedBy="account", cascade={"ALL"})
      * @ORM\JoinColumns({
      *      @ORM\JoinColumn(name="account_ID", referencedColumnName="account_ID")
      * })
@@ -232,7 +232,7 @@ class Account
     /**
      * @var \Doctrine\Common\Collections\Collection
      * 
-     * @ORM\OneToMany(targetEntity="AcademicExperience", mappedBy="account")
+     * @ORM\OneToMany(targetEntity="AcademicExperience", mappedBy="account", cascade={"ALL"})
      * @ORM\JoinColumns({
      *      @ORM\JoinColumn(name="account_ID", referencedColumnName="account_ID")
      * })
@@ -879,8 +879,9 @@ class Account
      * @param \CB\AccountBundle\Entity\Employee $employee
      * @return Account
      */
-    public function addEmployee(\CB\AccountBundle\Entity\Employee $employee)
+    public function addEmployoo(\CB\AccountBundle\Entity\Employee $employee)
     {
+        $employee->setAccount($this);
         $this->employee[] = $employee;
 
         return $this;
@@ -891,7 +892,7 @@ class Account
      *
      * @param \CB\AccountBundle\Entity\Employee $employee
      */
-    public function removeEmployee(\CB\AccountBundle\Entity\Employee $employee)
+    public function removeEmployoo(\CB\AccountBundle\Entity\Employee $employee)
     {
         $this->employee->removeElement($employee);
     }
@@ -914,6 +915,7 @@ class Account
      */
     public function addEducation(\CB\AccountBundle\Entity\Education $education)
     {
+        $education->setAccount($this);
         $this->education[] = $education;
 
         return $this;
@@ -947,6 +949,7 @@ class Account
      */
     public function addAcademicExperience(\CB\AccountBundle\Entity\AcademicExperience $academicExperience)
     {
+        $academicExperience->setAccount($this);
         $this->academicExperience[] = $academicExperience;
 
         return $this;

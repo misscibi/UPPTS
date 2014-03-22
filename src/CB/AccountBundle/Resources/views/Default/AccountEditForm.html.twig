@@ -1,0 +1,37 @@
+{# empty Twig template #}
+{% extends '::base.html.twig' %}
+
+{% block title %} Register {% endblock %}
+
+{% block body %}
+
+    {{ form_start(form, { 'style': 'horizontal', 'col-size': 'md' }) }}
+        <div class="row error-log" style="margin: 20px auto;">
+            <div class="col-lg-offset-2">
+                {{ form_errors(form, { 'global_errors': true }) }}
+            </div>
+        </div>
+        <div class="well bs-component">
+            {{ form_row(form.primaryEmail) }}
+            {{ form_row(form.password) }}
+            <legend>Basic Info</legend>
+            {{ form_row(form.firstName) }}
+            {{ form_row(form.middleName) }}
+            {{ form_row(form.lastName) }}
+            {{ form_row(form.birthdate) }}
+            <legend>Contact Information</legend>
+            {{ form_row(form.contactEmail) }}
+            {{ form_row(form.contactPhone) }}
+            <legend>Education</legend>
+            {{ form_row(form.education) }}
+            <legend>Employee Profile</legend>
+            {{ form_row(form.employee) }}
+            <legend>Other Academic Experience</legend>
+            {{ form_row(form.academicExperience) }}
+        </div>
+
+    {{ form_end(form) }}
+
+ 
+{% endblock %}
+

@@ -17,7 +17,6 @@ namespace CB\AccountBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use CB\AccountBundle\Form\Type\ContactEmailType;
 
 class AccountType extends AbstractType {
     
@@ -26,7 +25,14 @@ class AccountType extends AbstractType {
                 ->add('primaryEmail', new ContactEmailType(), array(
                                         'label'=> 'Email Address'
                 ))
-                ->add('password', 'password')
+                ->add('password', 'repeated', array(
+                        'type' => 'password',
+                        'invalid_message' => 'The password fields must match.',
+                        'options' => array('attr' => array('class' => 'password-field')),
+                        'required' => true,
+                        'first_options'  => array('label' => 'Password'),
+                        'second_options' => array('label' => 'Confirm Password'),
+                    ))
                 ->add('firstName', 'text')
                 ->add('middleName', 'text', array(
                                         'required' => false,
@@ -57,7 +63,44 @@ class AccountType extends AbstractType {
                                         'allow_add' => true,
                                         'allow_delete' => true,
                     ))
-                ->add('save', 'submit');
+                ->add('education', 'bootstrap_collection', array(
+                                        'label' => false,
+                                        'type' => new EducationType(),
+                                        'add_button_text' => 'Add Education',
+                                        'sub_widget_col' => 10,
+                                        'button_col' => 2,
+                                        'delete_button_text' => 'Delete',
+                                        'options' => array('attr' => array('class'=>'well bs-component')),
+                                        'by_reference' => false,
+                                        'allow_add' => true,
+                                        'allow_delete' => true,
+                    ))
+                ->add('employee', 'bootstrap_collection', array(
+                                        'label' => false,
+                                        'type' => new EmployeeType(),
+                                        'add_button_text' => 'Add Employee Profile',
+                                        'sub_widget_col' => 10,
+                                        'button_col' => 2,
+                                        'delete_button_text' => 'Delete',
+                                        'options' => array('attr' => array('class'=>'well bs-component')),
+                                        'by_reference' => false,
+                                        'allow_add' => true,
+                                        'allow_delete' => true,
+                    ))
+                ->add('academicExperience', 'bootstrap_collection', array(
+                                        'label' => false,
+                                        'type' => new AcademicExperienceType(),
+                                        'add_button_text' => 'Add Other Academic Experiences',
+                                        'sub_widget_col' => 10,
+                                        'button_col' => 2,
+                                        'delete_button_text' => 'Delete',
+                                        'options' => array('attr' => array('class'=>'well bs-component')),
+                                        'by_reference' => false,
+                                        'allow_add' => true,
+                                        'allow_delete' => true,
+                    ))
+                
+        ;
     }
     
     public function setDefaultOptions(OptionsResolverInterface $resolver) {

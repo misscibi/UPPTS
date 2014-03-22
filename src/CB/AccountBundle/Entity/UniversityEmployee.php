@@ -10,8 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="university_employee")
  * @ORM\Entity
  */
-class UniversityEmployee
+class UniversityEmployee extends Employee
 {
+    
     /**
      * @var string
      *
@@ -32,17 +33,6 @@ class UniversityEmployee
      * @ORM\Column(name="academic_experience", type="string", length=10000, nullable=true)
      */
     private $academicExperience;
-
-    /**
-     * @var \CB\AccountBundle\Entity\Employee
-     *
-     * @ORM\Id
-     * @ORM\OneToOne(targetEntity="CB\AccountBundle\Entity\Employee")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="employment_ID", referencedColumnName="employment_ID", unique=true)
-     * })
-     */
-    private $employment;
 
 
 
@@ -114,27 +104,5 @@ class UniversityEmployee
     {
         return $this->academicExperience;
     }
-
-    /**
-     * Set employment
-     *
-     * @param \CB\AccountBundle\Entity\Employee $employment
-     * @return UniversityEmployee
-     */
-    public function setEmployment(\CB\AccountBundle\Entity\Employee $employment = null)
-    {
-        $this->employment = $employment;
-
-        return $this;
-    }
-
-    /**
-     * Get employment
-     *
-     * @return \CB\AccountBundle\Entity\Employee 
-     */
-    public function getEmployment()
-    {
-        return $this->employment;
-    }
+    
 }
