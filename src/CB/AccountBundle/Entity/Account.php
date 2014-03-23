@@ -4,6 +4,7 @@ namespace CB\AccountBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Account
@@ -12,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * )
  */
-class Account
+class Account implements UserInterface, \Serializable
 {
     /**
      * @var integer
@@ -157,6 +158,16 @@ class Account
     private $primaryEmailAddress;
     
     /**
+     * @ORM\Column(name="username", type="string", length=255, nullable=true)
+     */
+    private $username;
+    
+    /**
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
+    
+    /**
      * @var \CB\AccountBundle\Entity\ContactEmail
      *
      * @ORM\OneToOne(targetEntity="CB\AccountBundle\Entity\ContactEmail", cascade={"ALL"})
@@ -251,6 +262,8 @@ class Account
         $this->employee = new ArrayCollection();
         $this->education = new ArrayCollection();
         $this->academicExperience = new ArrayCollection();
+        
+        $this->isActive = true;
     }
 
 
@@ -687,11 +700,12 @@ class Account
     public function setPrimaryEmail(\CB\AccountBundle\Entity\ContactEmail $primaryEmail)
     {
         if(!$this->contactEmail->contains($primaryEmail)) {
-            $this->addContactEmail($primaryEmail);                        
+            $this->addContactEmail($primaryEmail); 
         }
         
         $primaryEmail->setAccount($this);
         $this->primaryEmail = $primaryEmail;
+        $this->username = $primaryEmail->getEmailAddress();
       
         return $this;
     }
@@ -997,4 +1011,43 @@ class Account
     {
         return $this->primaryEmailAddress;
     }
+
+    public function eraseCredentials() {
+        
+    }
+
+    public function getRoles() {
+        
+        return array('ROLE_USER');
+    }
+
+    public function getSalt() {
+        
+        return null;
+    }
+
+    public function getUsername() {
+        $this->username;                
+    }
+
+    public function serialize() {
+        return serialize(array(
+            $this->accountId,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    public function unserialize($serialized) {
+        list (
+            $this->accountId,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized);
+    }
+
 }

@@ -30,3 +30,12 @@ cb_account:
     resource: "@CBAccountBundle/Resources/config/routing.yml"
     prefix:   /
 
+logout:
+    path:   /logout
+    
+login:
+    path:     /login
+    defaults: { _controller: CBAccountBundle:Security:login }
+    
+login_check:
+    path: /login_check

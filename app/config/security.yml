@@ -1,17 +1,25 @@
 security:
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
+        CB\AccountBundle\Entity\Account: plaintext
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
+        chain_provider:
+            chain:
+                providers: [in_memory, main]
         in_memory:
             memory:
                 users:
                     user:  { password: userpass, roles: [ 'ROLE_USER' ] }
                     admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        main:
+            entity:
+                class: CB\AccountBundle\Entity\Account
+                property: username
 
     firewalls:
         dev:
@@ -23,13 +31,15 @@ security:
             security: false
 
         secured_area:
-            pattern:    ^/demo/secured/
+            pattern:    ^/
+            anonymous: ~
             form_login:
-                check_path: _security_check
-                login_path: _demo_login
+                check_path: login_check
+                login_path: login
+                failure_path: login_failure
             logout:
-                path:   _demo_logout
-                target: _demo
+                path:   /logout
+                target: /
             #anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"

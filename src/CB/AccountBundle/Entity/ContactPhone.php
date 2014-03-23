@@ -20,7 +20,6 @@ class ContactPhone
      *
      * @ORM\Column(name="phone_number_ID", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $phoneNumberID;
     
