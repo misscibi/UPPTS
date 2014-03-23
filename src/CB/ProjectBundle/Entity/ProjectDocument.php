@@ -3,12 +3,15 @@
 namespace CB\ProjectBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ProjectDocument
  *
  * @ORM\Table(name="project_document", indexes={@ORM\Index(name="fk_Project_Document_Proponent1_idx", columns={"created_by_author"}), @ORM\Index(name="fk_Project_Document_Proponent2_idx", columns={"updated_by_author"}), @ORM\Index(name="fk_Project_Document_Grant_Phase_Required_Document1_idx", columns={"grant_document_ID"}), @ORM\Index(name="fk_Project_Document_Project1_idx", columns={"project_ID"})})
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  */
 class ProjectDocument
 {
@@ -31,9 +34,9 @@ class ProjectDocument
     /**
      * @var string
      *
-     * @ORM\Column(name="document_file_location", type="string", length=2000, nullable=true)
+     * @ORM\Column(name="document_path", type="string", length=2000, nullable=true)
      */
-    private $documentFileLocation;
+    private $documentPath;
 
     /**
      * @var \DateTime
@@ -89,7 +92,12 @@ class ProjectDocument
      */
     private $project;
 
-
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    private $file;
+    
+    private $temp;
 
     /**
      * Get projectDocumentId
@@ -125,26 +133,26 @@ class ProjectDocument
     }
 
     /**
-     * Set documentFileLocation
+     * Set documentPath
      *
-     * @param string $documentFileLocation
+     * @param string $documentPath
      * @return ProjectDocument
      */
-    public function setDocumentFileLocation($documentFileLocation)
+    public function setDocumentPath($documentPath)
     {
-        $this->documentFileLocation = $documentFileLocation;
+        $this->documentPath = $documentPath;
 
         return $this;
     }
 
     /**
-     * Get documentFileLocation
+     * Get documentPath
      *
      * @return string 
      */
-    public function getDocumentFileLocation()
+    public function getDocumentPath()
     {
-        return $this->documentFileLocation;
+        return $this->documentPath;
     }
 
     /**
@@ -283,5 +291,109 @@ class ProjectDocument
     public function getProject()
     {
         return $this->project;
+    }
+    
+    public function getAbsolutePath()
+    {
+        return null === $this->grantSourcePath
+            ? null
+            : $this->getUploadRootDir().'/'.$this->grantSourcePath;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->grantSourcePath
+            ? null
+            : $this->getUploadDir().'/'.$this->grantSourcePath;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/documents/project';
+    }
+    
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+        // check if we have an old image path
+        if (isset($this->documentPath)) {
+            // store the old name to delete after the update
+            $this->temp = $this->documentPath;
+            $this->documentPath = null;
+        } else {
+            $this->documentPath = 'initial';
+        }
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+    
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->getFile()) {
+            // do whatever you want to generate a unique name
+            $filename = sha1(uniqid(mt_rand(), true));
+            $this->documentPath = $filename.'.'.$this->getFile()->guessExtension();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null === $this->getFile()) {
+            return;
+        }
+
+        // if there is an error when moving the file, an exception will
+        // be automatically thrown by move(). This will properly prevent
+        // the entity from being persisted to the database on error
+        $this->getFile()->move($this->getUploadRootDir(), $this->documentPath);
+
+        // check if we have an old image
+        if (isset($this->temp)) {
+            // delete the old image
+            unlink($this->getUploadRootDir().'/'.$this->temp);
+            // clear the temp image path
+            $this->temp = null;
+        }
+        $this->file = null;
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
     }
 }

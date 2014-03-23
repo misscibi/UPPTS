@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Grant
  *
- * @ORM\Table(name="grant")
+ * @ORM\Table(name="grants")
  * @ORM\Entity
  */
 class Grant
@@ -53,7 +53,7 @@ class Grant
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="CB\AccountBundle\Entity\Account", mappedBy="grant")
+     * @ORM\ManyToMany(targetEntity="CB\AccountBundle\Entity\Account", mappedBy="fundedGrant", cascade={"ALL"})
      * @ORM\JoinTable(name="funder",
      *   joinColumns={
      *     @ORM\JoinColumn(name="account_ID", referencedColumnName="account_ID")
@@ -83,7 +83,7 @@ class Grant
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\GrantBlacklistType", mappedBy="grant")
+     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\GrantBlacklistType", mappedBy="grant", cascade={"ALL"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="grant_ID", referencedColumnName="grant_ID")
      * })
@@ -93,7 +93,7 @@ class Grant
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\GrantSources", mappedBy="grant")
+     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\GrantSources", mappedBy="grant", cascade={"ALL"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="grant_ID", referencedColumnName="grant_ID")
      * })
@@ -103,7 +103,7 @@ class Grant
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\GrantCycle", mappedBy="grant")
+     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\GrantCycle", mappedBy="grant", cascade={"ALL"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="grant_ID", referencedColumnName="grant_ID")
      * })
@@ -233,6 +233,7 @@ class Grant
      */
     public function addFunder(\CB\AccountBundle\Entity\Account $funder)
     {
+        $funder->addFundedGrant($this);
         $this->funder[] = $funder;
 
         return $this;
@@ -299,6 +300,7 @@ class Grant
      */
     public function addGrantBlacklistType(\CB\GrantBundle\Entity\GrantBlacklistType $grantBlacklistType)
     {
+        $grantBlacklistType->setGrant($this);
         $this->grantBlacklistType[] = $grantBlacklistType;
 
         return $this;
@@ -332,6 +334,7 @@ class Grant
      */
     public function addGrantSource(\CB\GrantBundle\Entity\GrantSources $grantSource)
     {
+        $grantSource->setGrant($this);
         $this->grantSource[] = $grantSource;
 
         return $this;
@@ -365,6 +368,7 @@ class Grant
      */
     public function addGrantCycle(\CB\GrantBundle\Entity\GrantCycle $grantCycle)
     {
+        $grantCycle->setGrant($this);
         $this->grantCycle[] = $grantCycle;
 
         return $this;

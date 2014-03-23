@@ -2,6 +2,11 @@ parameters:
 #    cb_grant.example.class: CB\GrantBundle\Example
 
 services:
+    cb_grant.form.type.grant_selector:
+        class: CB\GrantBundle\Form\Type\GrantSelectorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type, alias: grant_selector }
 #    cb_grant.example:
 #        class: %cb_grant.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]

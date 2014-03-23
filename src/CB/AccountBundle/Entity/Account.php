@@ -721,39 +721,6 @@ class Account implements UserInterface, \Serializable
     }
 
     /**
-     * Add grant
-     *
-     * @param \CB\GrantBundle\Entity\Grant $grant
-     * @return Account
-     */
-    public function addGrant(\CB\GrantBundle\Entity\Grant $grant)
-    {
-        $this->grant[] = $grant;
-
-        return $this;
-    }
-
-    /**
-     * Remove grant
-     *
-     * @param \CB\GrantBundle\Entity\Grant $grant
-     */
-    public function removeGrant(\CB\GrantBundle\Entity\Grant $grant)
-    {
-        $this->grant->removeElement($grant);
-    }
-
-    /**
-     * Get grant
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getGrant()
-    {
-        return $this->grant;
-    }
-
-    /**
      * Add fundedGrant
      *
      * @param \CB\GrantBundle\Entity\Grant $fundedGrant

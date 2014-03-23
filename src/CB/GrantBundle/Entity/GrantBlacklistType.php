@@ -3,28 +3,46 @@
 namespace CB\GrantBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * GrantBlacklistType
  *
- * @ORM\Table(name="grant_blacklist_type", indexes={@ORM\Index(name="IDX_A3D4F84AF2E68D99", columns={"grant_ID"})})
+ * @ORM\Table(name="grant_blacklist_type", uniqueConstraints={@ORM\UniqueConstraint(name="unique_grant_blacklist", columns={"grant_ID","grant_type"})})
  * @ORM\Entity
+ * @UniqueEntity(fields={"grantID", "grantType"})
+ * )
  */
 class GrantBlacklistType
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+    
+    /**
      * @var string
      *
      * @ORM\Column(name="grant_type", type="string", length=45)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $grantType;
+    
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="grant_ID", type="integer")
+     */
+    private $grantID;
 
     /**
      * @var \CB\GrantBundle\Entity\Grant
-     *
-     * @ORM\ManyToOne(targetEntity="CB\GrantBundle\Entity\Grant")
+     * 
+     * @ORM\ManyToOne(targetEntity="CB\GrantBundle\Entity\Grant", inversedBy="grant")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="grant_ID", referencedColumnName="grant_ID")
      * })

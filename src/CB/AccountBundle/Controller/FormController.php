@@ -11,7 +11,6 @@ namespace CB\AccountBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-use CB\AccountBundle\Entity\Account;
 use CB\AccountBundle\Form\Type\AccountType;
 use CB\AccountBundle\Form\Model\AccountRegistration;
 use CB\AccountBundle\Form\Type\AccountRegistrationType;

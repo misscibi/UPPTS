@@ -1,3 +1,3 @@
-cb_grant_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: CBGrantBundle:Default:index }
+funder_create_grant:
+    pattern: /grant/create
+    defaults: { _controller: CBGrantBundle:Create:grant }
