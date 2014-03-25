@@ -1,8 +1,11 @@
-  
+cb_new_announcement_form:
+    pattern: /announcement
+    defaults: {_controller: CBAccountBundle:Announcement:create}
+    
 cb_edit_account_form:
     pattern: /account/{id}
-    defaults: {_controller: CBAccountBundle:Form:edit}
+    defaults: {_controller: CBAccountBundle:Account:edit}
 
 cb_new_account_form:
     pattern:  /account
-    defaults: { _controller: CBAccountBundle:Form:index}
+    defaults: { _controller: CBAccountBundle:Account:create}

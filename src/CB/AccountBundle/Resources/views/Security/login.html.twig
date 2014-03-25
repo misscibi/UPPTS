@@ -9,14 +9,27 @@
         <div>{{ error.message }}</div>
     {% endif %}
 
-    <form action="{{ path('login_check') }}" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}" />
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password" />
-
-
-        <button type="submit">login</button>
+    <form class="form-horizontal" action="{{ path('login_check') }}" method="post">
+        <div class="form-group">
+            <label for="username" class="col-sm-2 control-label">Email Address:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">Password:</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="password" name="_password" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Login</button>
+            </div>
+        </div>
+            
     </form>
+    
+                
+    <div class="well">Don't have an account yet? <a href="{{ path('cb_new_account_form') }}">Sign Up.</a></div>
 {% endblock %}

@@ -125,4 +125,17 @@ class ContactPhone
     {
         return $this->phoneNumber;
     }
+
+    /**
+     * Set phoneNumberID
+     *
+     * @param integer $phoneNumberID
+     * @return ContactPhone
+     */
+    public function setPhoneNumberID($phoneNumberID)
+    {
+        $this->phoneNumberID = $phoneNumberID;
+
+        return $this;
+    }
 }

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}UP Research Project Tracking System{% endblock %}</title>
         {% block stylesheets %}
             <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
         {% endblock %}
@@ -12,22 +12,25 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <div class="container-fluid">
+        <div class="container">
             
             {% block navbar %}
-                <div class="navbar navbar-default navbar-fixed-top">
+                <header class="navbar navbar-default navbar-fixed-top">
                     <div class="navbar-header">
                       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                       </button>
-                      <a class="navbar-brand" href="/">UP RPTS</a>
+                      <a class="navbar-brand" href="{{ path('cb_main_homepage') }}">Home</a>
                     </div>
                     <div class="navbar-collapse collapse navbar-responsive-collapse">
                       <ul class="nav navbar-nav">
+                          {# Proponents Links #}
+                        <li class="{% if app.request.attributes.get('_route') == '/proposal' %}active{% endif %}"><a href="/proposal">Proposals</a></li>
                         <li class="{% if app.request.attributes.get('_route') == '/grant' %}active{% endif %}"><a href="/grant">Grants</a></li>
                         <li class="{% if app.request.attributes.get('_route') == '/help' %}active{% endif %}"><a href="/help">Help</a></li>
+                        {#
                         <li class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
                           <ul class="dropdown-menu">
@@ -40,30 +43,87 @@
                             <li><a href="#">One more separated link</a></li>
                           </ul>
                         </li>
+                        #}
                       </ul>
-                      <form class="navbar-form navbar-left">
-                        <input type="text" class="form-control col-lg-8" placeholder="Search">
-                      </form>
-                      <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% if app.user %} {{ app.user.firstName }} {% else %}Guest {% endif %}<b class="caret"></b></a>
-                          <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                          </ul>
-                        </li>
+                      <ul class="nav navbar-nav navbar-right" style="padding-right: 15px;">
+                          {# Login/Signup buttons #}
+                            {% if app.user %}
+                                <li class="dropdown">
+                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{ app.user.firstName }} <b class="caret"></b></a>
+                                  <ul class="dropdown-menu">
+                                    <li><a href="#">Dashboard</a></li>
+                                    <li><a href="#">Profile</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{ path('logout') }}">Log Out</a></li>
+                                  </ul>
+                                </li>
+                            {% else %}
+                                <li><a href="{{ path('login') }}">Log In</b></a></li>
+                            {% endif %}
                       </ul>
                     </div>
-                  </div>
+                  </header>
             {% endblock %}
 
-            <div class="row" style="padding-top:50px;">
-                <div class="col-md-12">
+            <div class="row" style="padding-top:65px;">
+                <div class="col-xs-12">
                     {% block body %}
-                        <h1>Hello, you are processed by the main bundle!</h1>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <a href="#" class="thumbnail" style="background-color: grey; width: 900px; height: 200px; margin:0px auto;">
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="row" style="margin-top: 20px;">
+                            <div class="col-xs-8">
+                                <h1>Announcements</h1><hr>
+                                
+                                {% if announcements %}
+                                {% for announcement in announcements %}
+                                    <h3>{{ announcement.announcementTitle }}</h3>
+                                    <small>Posted on {{ announcement.createTimestamp | date('Y-m-d H:i:s') }} by {{ announcement.account.firstName }} {{ announcement.account.lastName }}</small>
+                                    <div style="padding-top: 10px;">{{ announcement.announcementMessage }}</div>
+                                    <hr>
+                                {% endfor %}
+                                {% else %}
+                                    No announcements so far.
+                                {% endif %}
+                                
+                            </div>
+                            <div class="col-xs-4 well">
+                                {#
+                                {% if error %}
+                                    <div>{{ error.message }}</div>
+                                {% endif %}
+                                
+                                <form class="form-horizontal" action="{{ path('login_check') }}" method="post">
+                                    <div class="form-group">
+                                        <label for="username" class="col-sm-4 control-label">Email Address:</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password" class="col-sm-4 control-label">Password:</label>
+                                        <div class="col-sm-8">
+                                            <input type="password" class="form-control" id="password" name="_password" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-4 col-sm-8">
+                                            <button type="submit" class="btn btn-default">Login</button>
+                                            <a href="{{ path('cb_new_account_form') }}" class="btn btn-default">Sign Up</a>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                                #}
+                             </div>
+                        </div>
+                        
                     {% endblock %}
                 </div>
             </div>

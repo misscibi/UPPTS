@@ -1017,4 +1017,63 @@ class Account implements UserInterface, \Serializable
         ) = unserialize($serialized);
     }
 
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return Account
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     * @return Account
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean 
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Add employee
+     *
+     * @param \CB\AccountBundle\Entity\Employee $employee
+     * @return Account
+     */
+    public function addEmployee(\CB\AccountBundle\Entity\Employee $employee)
+    {
+        $this->employee[] = $employee;
+
+        return $this;
+    }
+
+    /**
+     * Remove employee
+     *
+     * @param \CB\AccountBundle\Entity\Employee $employee
+     */
+    public function removeEmployee(\CB\AccountBundle\Entity\Employee $employee)
+    {
+        $this->employee->removeElement($employee);
+    }
 }

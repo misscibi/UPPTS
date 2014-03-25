@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use CB\AccountBundle\Form\Type\AccountType;
 use CB\AccountBundle\Form\Model\AccountRegistration;
 use CB\AccountBundle\Form\Type\AccountRegistrationType;
+
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -21,9 +22,9 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @author Christabel
  */
-class FormController extends Controller {
+class AccountController extends Controller {
     //put your code here
-    public function indexAction (Request $request)
+    public function createAction (Request $request)
     {
         $registration = new AccountRegistration();
         
@@ -36,7 +37,7 @@ class FormController extends Controller {
             $em->persist($registration->getAccount());
             $em->flush();
             
-            return $this->redirect($this->generateUrl('cb_main_homepage'));
+            return $this->redirect($this->generateUrl('cb_dashboard'));
         } else {
             return $this->render('CBAccountBundle:Default:AccountRegistrationForm.html.twig', array(
                 'form' => $form->createView(),
