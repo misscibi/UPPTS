@@ -45,6 +45,19 @@ class AccountController extends Controller {
         }
         
     }
+
+    public function viewAction ($id, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $account = $em->getRepository('CBAccountBundle:Account')->find($id);
+
+        if(!$account) {
+            throw $this->createNotFoundException('No account found with ID '.$id);
+        }
+
+        return $this->render('CBAccountBundle:Account:ViewProfile.html.twig', array(
+            'form' => $editForm->createView(),
+        ));
+    }
     
     public function editAction ($id, Request $request) {
         $em = $this->getDoctrine()->getManager();

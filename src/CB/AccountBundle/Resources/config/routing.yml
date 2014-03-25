@@ -1,3 +1,7 @@
+cb_dashboard:
+  pattern: /dashboard
+  defaults: {_controller: CBAccountBundle:Dashboard:index}
+
 cb_new_announcement_form:
     pattern: /announcement
     defaults: {_controller: CBAccountBundle:Announcement:create}
