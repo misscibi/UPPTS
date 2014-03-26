@@ -37,7 +37,7 @@ class AccountController extends Controller {
             $em->persist($registration->getAccount());
             $em->flush();
             
-            return $this->redirect($this->generateUrl('cb_dashboard'));
+            return $this->redirect($this->generateUrl('login'));
         } else {
             return $this->render('CBAccountBundle:Default:AccountRegistrationForm.html.twig', array(
                 'form' => $form->createView(),

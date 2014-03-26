@@ -56,7 +56,7 @@ class Phase
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\GrantPhaseRequiredDocument", mappedBy="phase")
+     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\GrantPhaseRequiredDocument", mappedBy="phase", cascade={"ALL"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="phase_ID", referencedColumnName="phase_ID")
      * })
@@ -66,7 +66,7 @@ class Phase
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\PhaseInstance", mappedBy="phase")
+     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\PhaseInstance", mappedBy="phase", cascade={"ALL"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="phase_ID", referencedColumnName="phase_ID")
      * })
@@ -188,6 +188,7 @@ class Phase
      */
     public function addGrantPhaseRequiredDocument(\CB\GrantBundle\Entity\GrantPhaseRequiredDocument $grantPhaseRequiredDocument)
     {
+        $grantPhaseRequiredDocument->setPhase($this);
         $this->grantPhaseRequiredDocument[] = $grantPhaseRequiredDocument;
 
         return $this;
@@ -221,6 +222,7 @@ class Phase
      */
     public function addPhaseInstance(\CB\GrantBundle\Entity\PhaseInstance $phaseInstance)
     {
+        $phaseInstance->setPhase($this);
         $this->phaseInstance[] = $phaseInstance;
 
         return $this;

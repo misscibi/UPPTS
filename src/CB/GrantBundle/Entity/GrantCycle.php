@@ -42,7 +42,7 @@ class GrantCycle
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\Phase", mappedBy="grantCycle")
+     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\Phase", mappedBy="grantCycle", cascade={"ALL"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="grant_ID", referencedColumnName="grant_ID")
      * })
@@ -52,7 +52,7 @@ class GrantCycle
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\GrantCycleInstance", mappedBy="grantCycle")
+     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\GrantCycleInstance", mappedBy="grantCycle", cascade={"ALL"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="grant_ID", referencedColumnName="grant_ID")
      * })
@@ -128,6 +128,7 @@ class GrantCycle
      */
     public function addPhase(\CB\GrantBundle\Entity\Phase $phase)
     {
+        $phase->setGrantCycle($this);
         $this->phase[] = $phase;
 
         return $this;
@@ -161,6 +162,7 @@ class GrantCycle
      */
     public function addGrantCycleInstance(\CB\GrantBundle\Entity\GrantCycleInstance $grantCycleInstance)
     {
+        $grantCycleInstance->setGrantCycle($this);
         $this->grantCycleInstance[] = $grantCycleInstance;
 
         return $this;

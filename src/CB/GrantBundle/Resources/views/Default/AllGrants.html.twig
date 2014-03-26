@@ -1,0 +1,22 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    {% if grants %}
+        <div class="row">
+            <div style="margin:30px auto; text-align: center;"><h1>All Grants</h1></div>
+        </div>
+        {% for grant in grants %}
+            <a href="{{  path('cb_grant_permalink', {'id':grant.grantId}) }}">
+                <div class="row well">
+                    <h3>{{ grant.grantName }}</h3>
+                    <small>Type: {{ grant.grantType }}</small><br>
+                    {{ grant.grantDescription }}
+                </div>
+            </a>
+        {% endfor %}
+    {% else %}
+        <div class="row" style="margin: 0px auto;">No grants are available as of today.</div>
+    {% endif %}
+
+{% endblock %}

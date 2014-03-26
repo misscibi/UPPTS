@@ -1,3 +1,21 @@
+
+cb_create_grant_instance:
+  pattern: /grant/{id}/instance/create
+  defaults: { _controller: CBGrantBundle:GrantInstance:create }
+
+cb_grant_instance:
+  pattern: /grant/{id}/instance
+  defaults: { _controller: CBGrantBundle:GrantInstance:view }
+
 funder_create_grant:
     pattern: /grant/create
     defaults: { _controller: CBGrantBundle:Create:grant }
+
+cb_grant_permalink:
+  pattern: /grant/{id}
+  defaults: { _controller: CBGrantBundle:Grant:view }
+
+cb_all_grants:
+  pattern: /grants
+  defaults: { _controller: CBGrantBundle:Grant:viewAll }
+

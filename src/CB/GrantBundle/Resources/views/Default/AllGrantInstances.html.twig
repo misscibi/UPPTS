@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    {% if cycleInstance %}
+        <h1>Instances of {{ cycleInstance.grantCycle.grant.grantName }} : {{ cycleInstance.grantCycle.grantCycleName }}</h1>
+        {% else %}
+        No instances made for this grant cycle. <a href="{{ path('cb_create_grant_instance', {'id':grantCycle.grantCycleId}) }}">Make one.</a>
+        {% endif %}
+
+{% endblock %}

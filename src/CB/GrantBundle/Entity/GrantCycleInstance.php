@@ -35,7 +35,7 @@ class GrantCycleInstance
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="CB\ProjectBundle\Entity\Project", mappedBy="grantCycleInstance")
+     * @ORM\ManyToMany(targetEntity="CB\ProjectBundle\Entity\Project", mappedBy="grantCycleInstance", cascade={"ALL"})
      * @ORM\JoinTable(name="project_under_grant_cycle",
      *   joinColumns={
      *     @ORM\JoinColumn(name="project_ID", referencedColumnName="project_ID")
@@ -50,7 +50,7 @@ class GrantCycleInstance
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\PhaseInstance", mappedBy="grantCycleInstance")
+     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\PhaseInstance", mappedBy="grantCycleInstance", cascade={"ALL"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="grant_cycle_instance_ID", referencedColumnName="grant_cycle_instance_ID")
      * })
@@ -60,10 +60,15 @@ class GrantCycleInstance
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\PriorityResearchArea", mappedBy="grantCycleInstance")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="grant_cycle_instance_ID", referencedColumnName="grant_cycle_instance_ID")
-     * })
+     * @ORM\ManyToMany(targetEntity="CB\GrantBundle\Entity\ResearchArea", mappedBy="grantCycleInstance", cascade={"ALL"})
+     * @ORM\JoinTable(name="grant_cycle_under_research_area",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="grant_cycle_instance_ID", referencedColumnName="grant_cycle_instance_ID")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="research_area_ID", referencedColumnName="research_area_ID")
+     *   }
+     * )
      */
     private $priorityResearchArea;
 
@@ -119,6 +124,7 @@ class GrantCycleInstance
      */
     public function addProject(\CB\ProjectBundle\Entity\Project $project)
     {
+        $project->addGrantCycleInstance($this);
         $this->project[] = $project;
 
         return $this;
@@ -152,6 +158,7 @@ class GrantCycleInstance
      */
     public function addPhaseInstance(\CB\GrantBundle\Entity\PhaseInstance $phaseInstance)
     {
+        $phaseInstance->setGrantCycleInstance($this);
         $this->phaseInstance[] = $phaseInstance;
 
         return $this;
@@ -180,11 +187,12 @@ class GrantCycleInstance
     /**
      * Add priorityResearchArea
      *
-     * @param \CB\GrantBundle\Entity\PriorityResearchArea $priorityResearchArea
+     * @param \CB\GrantBundle\Entity\ResearchArea $priorityResearchArea
      * @return GrantCycleInstance
      */
-    public function addPriorityResearchArea(\CB\GrantBundle\Entity\PriorityResearchArea $priorityResearchArea)
+    public function addPriorityResearchArea(\CB\GrantBundle\Entity\ResearchArea $priorityResearchArea)
     {
+        $priorityResearchArea->addGrantCycleInstance($this);
         $this->priorityResearchArea[] = $priorityResearchArea;
 
         return $this;
@@ -193,9 +201,9 @@ class GrantCycleInstance
     /**
      * Remove priorityResearchArea
      *
-     * @param \CB\GrantBundle\Entity\PriorityResearchArea $priorityResearchArea
+     * @param \CB\GrantBundle\Entity\ResearchArea $priorityResearchArea
      */
-    public function removePriorityResearchArea(\CB\GrantBundle\Entity\PriorityResearchArea $priorityResearchArea)
+    public function removePriorityResearchArea(\CB\GrantBundle\Entity\ResearchArea $priorityResearchArea)
     {
         $this->priorityResearchArea->removeElement($priorityResearchArea);
     }

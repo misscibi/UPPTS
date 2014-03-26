@@ -103,10 +103,15 @@ class Project
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="CB\ProjectBundle\Entity\ProjectResearchArea", mappedBy="project")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="project_ID", referencedColumnName="project_ID")
-     * })
+     * @ORM\ManyToMany(targetEntity="CB\GrantBundle\Entity\ResearchArea", mappedBy="project", cascade={"ALL"})
+     * @ORM\JoinTable(name="project_under_research_area",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="project_ID", referencedColumnName="project_ID")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="research_area_ID", referencedColumnName="research_area_ID")
+     *   }
+     * )
      */
     private $projectResearchArea;
     
@@ -369,39 +374,6 @@ class Project
     }
 
     /**
-     * Add projectResearchArea
-     *
-     * @param \CB\ProjectBundle\Entity\ProjectResearchArea $projectResearchArea
-     * @return Project
-     */
-    public function addProjectResearchArea(\CB\ProjectBundle\Entity\ProjectResearchArea $projectResearchArea)
-    {
-        $this->projectResearchArea[] = $projectResearchArea;
-
-        return $this;
-    }
-
-    /**
-     * Remove projectResearchArea
-     *
-     * @param \CB\ProjectBundle\Entity\ProjectResearchArea $projectResearchArea
-     */
-    public function removeProjectResearchArea(\CB\ProjectBundle\Entity\ProjectResearchArea $projectResearchArea)
-    {
-        $this->projectResearchArea->removeElement($projectResearchArea);
-    }
-
-    /**
-     * Get projectResearchArea
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getProjectResearchArea()
-    {
-        return $this->projectResearchArea;
-    }
-
-    /**
      * Add reviewer
      *
      * @param \CB\ReviewerBundle\Entity\Reviewer $reviewer
@@ -432,5 +404,38 @@ class Project
     public function getReviewer()
     {
         return $this->reviewer;
+    }
+
+    /**
+     * Add projectResearchArea
+     *
+     * @param \CB\GrantBundle\Entity\ResearchArea $projectResearchArea
+     * @return Project
+     */
+    public function addProjectResearchArea(\CB\GrantBundle\Entity\ResearchArea $projectResearchArea)
+    {
+        $this->projectResearchArea[] = $projectResearchArea;
+
+        return $this;
+    }
+
+    /**
+     * Remove projectResearchArea
+     *
+     * @param \CB\GrantBundle\Entity\ResearchArea $projectResearchArea
+     */
+    public function removeProjectResearchArea(\CB\GrantBundle\Entity\ResearchArea $projectResearchArea)
+    {
+        $this->projectResearchArea->removeElement($projectResearchArea);
+    }
+
+    /**
+     * Get projectResearchArea
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProjectResearchArea()
+    {
+        return $this->projectResearchArea;
     }
 }

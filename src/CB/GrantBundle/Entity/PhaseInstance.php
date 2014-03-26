@@ -277,6 +277,7 @@ class PhaseInstance
      */
     public function addAcceptedProjectsInPhase(\CB\GrantBundle\Entity\AcceptedProjectsInPhase $acceptedProjectsInPhase)
     {
+        $acceptedProjectsInPhase->getPhaseInstance($this);
         $this->acceptedProjectsInPhase[] = $acceptedProjectsInPhase;
 
         return $this;

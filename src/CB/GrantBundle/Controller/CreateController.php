@@ -42,7 +42,7 @@ class CreateController extends Controller {
             $em->persist($grant);
             $em->flush();
             
-            return $this->redirect($this->generateUrl('funder_homepage'));
+            return $this->redirect($this->generateUrl('cb_dashboard'));
         } else {
             return $this->render('CBGrantBundle:Default:GrantRegistrationForm.html.twig', array(
                     'form'=>$form->createView(),

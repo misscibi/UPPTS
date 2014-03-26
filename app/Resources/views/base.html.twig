@@ -30,7 +30,7 @@
                           {% if app.user %}
                               <li class="{% if app.request.attributes.get('_route') == 'cb_dashboard' %}active{% endif %}"><a href="{{ path('cb_dashboard') }}">Projects</a></li>
                           {% endif %}
-                        <li class="{% if app.request.attributes.get('_route') == '/grant' %}active{% endif %}"><a href="/grant">Grants</a></li>
+                        <li class="{% if app.request.attributes.get('_route') == 'cb_all_grants' %}active{% endif %}"><a href="{{ path('cb_all_grants') }}">Grants</a></li>
                         <li class="{% if app.request.attributes.get('_route') == '/help' %}active{% endif %}"><a href="/help">Help</a></li>
                         <li class="{% if app.request.attributes.get('_route') == '/about' %}active{% endif %}"><a href="/about">About</a></li>
                         {#

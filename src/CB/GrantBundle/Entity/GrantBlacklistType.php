@@ -96,4 +96,37 @@ class GrantBlacklistType
     {
         return $this->grant;
     }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set grantID
+     *
+     * @param integer $grantID
+     * @return GrantBlacklistType
+     */
+    public function setGrantID($grantID)
+    {
+        $this->grantID = $grantID;
+
+        return $this;
+    }
+
+    /**
+     * Get grantID
+     *
+     * @return integer 
+     */
+    public function getGrantID()
+    {
+        return $this->grantID;
+    }
 }

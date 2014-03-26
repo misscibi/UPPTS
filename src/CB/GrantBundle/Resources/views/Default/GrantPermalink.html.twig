@@ -1,0 +1,99 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    {% if grant %}
+        <div class="row" style="margin-top: 30px;">
+            <h1>{{ grant.grantName }}</h1><hr>
+        </div>
+        <div class="row">
+            <div class="col-xs-{% if grant.grantSource is not empty %}9{% else %}12{% endif %}">
+                <div class="row">
+                    <div class="col-xs-3" style="font-weight: bold;">Grant Amount (in pesos):</div><div class="col-xs-9  ">{{ grant.grantAmount }}</div>
+
+                </div>
+                <div class="row">
+                    <div class="col-xs-3" style="font-weight: bold;">Type:</div><div class="col-xs-9">{{ grant.grantType }}</div><br>
+
+                </div>
+
+                <div class="row" style="margin:30px auto;">{{ grant.grantDescription }}</div>
+
+            </div>
+            {% if grant.grantSource is not empty %}
+                <div class="row col-xs-3">
+                    <h5 style="font-weight: bold;">Downloads</h5>
+                    <small><ul>
+                            {% for source in grant.grantSource %}
+                                <li><a href="{{ asset(source.WebPath) }}">
+                                        {{ source.grantSourceName }}
+                                    </a></li><br>
+                            {% endfor %}
+                        </ul></small>
+                </div>
+            {% endif %}
+        </div>
+
+
+        <div class="row well">
+            <h4>Current Phase</h4><hr>
+            (( Show phase ))
+        </div>
+
+        {# display "Grant Cycles" #}
+        <div style="margin: 30px auto;">
+
+            <div class="row well">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-pills nav-stacked col-xs-3">
+                    {% if grant.grantCycle is not empty %}
+                        {% for cycle in grant.grantCycle %}
+                            <li><a href="#{{ cycle.grantCycleId }}" data-toggle="tab">{{ cycle.grantCycleTitle }}</a></li>
+                        {% endfor %}
+                        <hr>
+                    {% endif %}
+
+                    <li><a href="#add-cycle" data-toggle="tab">Add Grant Cycle</a></li>
+
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content col-xs-9">
+                    {% if grant.grantCycle is not empty %}
+                        {% for cycle in grant.grantCycle %}
+                            <div class="tab-pane fade" id="{{ cycle.grantCycleId }}">
+                                {% if cycle.phase is not empty %}
+                                    {% for phase in cycle.phase %}
+                                        <div class="well">
+
+                                         <a href="#" class="btn btn-default" style="float: right;">Edit</a>
+                                         <h3>{{ phase.phaseTitle }}</h3>
+                                        {% if phase.grantPhaseRequiredDocument is not empty %}
+                                            <h5>Required Documents</h5><hr>
+                                            {% for document in phase.grantPhaseRequiredDocument %}
+                                                <strong>{{ document.requiredDocumentsName }}</strong> - <small>{{ document.requiredDocumentsDescription }}</small>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                <a href="#" class="btn btn-default">Add Phase</a><hr>
+                                <a href="{{ path('cb_grant_instance', {'id':cycle.grantCycleId}) }}" class="btn btn-default">View instances under this cycle</a>
+                                <a href="#" class="btn btn-default">Edit Name of Cycle</a>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="tab-pane fade" id="add-cycle">
+                        {{ form_start(cycle_form, {'style':'horizontal'}) }}
+                        {{ form_end(cycle_form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="row" style="margin: 0px auto;">No grant selected.</div>
+    {% endif %}
+
+{% endblock %}
