@@ -17,14 +17,13 @@ class GrantCycleInstanceType extends AbstractType {
     {
 
         $builder
-            ->add('priorityResearchArea', 'bootstrap_collection', array(
-                'label' => false,
+            ->add('researchArea', 'bootstrap_collection', array(
+                'label' => "Research Areas",
                 'type' => new ResearchAreaType(),
                 'add_button_text' => 'Add Research Area',
                 'sub_widget_col' => 10,
                 'button_col' => 2,
                 'delete_button_text' => 'Delete',
-                'options' => array('attr' => array('class'=>'well bs-component')),
                 'by_reference' => false,
                 'allow_add' => true,
                 'allow_delete' => true,

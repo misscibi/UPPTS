@@ -7,56 +7,23 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * PriorityResearchArea
  *
- * @ORM\Table(name="research_area",
- *              uniqueConstraints={
- *                  @ORM\UniqueConstraint(name="unique_research_area_1", columns={"research_area_tag","grant_cycle_instance_ID"}),
- *                  @ORM\UniqueConstraint(name="unique_research_area_2", columns={"research_area_tag","project_ID"})
- *                  })
+ * @ORM\Table(name="research_area")
  * @ORM\Entity
  *
  */
 class ResearchArea
 {
     /**
-     * @var integer
-     * @ORM\Id
-     * @ORM\Column(name="research_area_ID", type="integer")
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
-    /**
      * @var string
+     * @ORM\Id
      * @ORM\Column(name="research_area_tag", type="string", length=255, nullable=false)
      */
     private $researchAreaTag;
 
-
-    /**
-     * @var integer
-     * @ORM\Column(name="grant_cycle_instance_ID", type="integer")
-     */
-    private $grantCycleInstanceId;
-
-    /**
-     * @var integer
-     * @ORM\Column(name="project_ID", type="integer")
-     */
-    private $projectId;
-
     /**
      * @var \CB\GrantBundle\Entity\GrantCycleInstance
      *
-     * @ORM\ManyToMany(targetEntity="CB\GrantBundle\Entity\GrantCycleInstance", inversedBy="priorityResearchArea")
-     * @ORM\JoinTable(name="grant_cycle_under_research_area",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="research_area_ID", referencedColumnName="research_area_ID")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="grant_cycle_instance_ID", referencedColumnName="grant_cycle_instance_ID")
-     *
-     *      }
-     * )
+     * @ORM\ManyToMany(targetEntity="CB\GrantBundle\Entity\GrantCycleInstance", mappedBy="researchArea")
      */
     private $grantCycleInstance;
 
@@ -67,7 +34,7 @@ class ResearchArea
      * @ORM\ManyToMany(targetEntity="CB\ProjectBundle\Entity\Project")
      * @ORM\JoinTable(name="project_under_research_area",
      *   joinColumns={
-     *      @ORM\JoinColumn(name="research_area_ID", referencedColumnName="research_area_ID")
+     *      @ORM\JoinColumn(name="research_area_tag", referencedColumnName="research_area_tag")
      *      },
      *   inverseJoinColumns={
      *     @ORM\JoinColumn(name="project_ID", referencedColumnName="project_ID")

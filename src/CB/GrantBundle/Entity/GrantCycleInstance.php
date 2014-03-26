@@ -4,6 +4,9 @@ namespace CB\GrantBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\EventListener\ResizeFormListener;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 /**
  * GrantCycleInstance
@@ -60,17 +63,17 @@ class GrantCycleInstance
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="CB\GrantBundle\Entity\ResearchArea", mappedBy="grantCycleInstance", cascade={"ALL"})
+     * @ORM\ManyToMany(targetEntity="CB\GrantBundle\Entity\ResearchArea", inversedBy="grantCycleInstance", cascade={"ALL"})
      * @ORM\JoinTable(name="grant_cycle_under_research_area",
      *   joinColumns={
      *     @ORM\JoinColumn(name="grant_cycle_instance_ID", referencedColumnName="grant_cycle_instance_ID")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="research_area_ID", referencedColumnName="research_area_ID")
+     *     @ORM\JoinColumn(name="research_area_tag", referencedColumnName="research_area_tag")
      *   }
      * )
      */
-    private $priorityResearchArea;
+    private $researchArea;
 
     /**
      * Constructor
@@ -79,7 +82,7 @@ class GrantCycleInstance
     {
         $this->project = new \Doctrine\Common\Collections\ArrayCollection();
         $this->phaseInstance = new ArrayCollection();
-        $this->priorityResearchArea = new ArrayCollection();
+        $this->researchArea = new ArrayCollection();
     }
 
 
@@ -185,36 +188,37 @@ class GrantCycleInstance
     }
 
     /**
-     * Add priorityResearchArea
+     * Add researchArea
      *
-     * @param \CB\GrantBundle\Entity\ResearchArea $priorityResearchArea
+     * @param \CB\GrantBundle\Entity\ResearchArea $researchArea
      * @return GrantCycleInstance
      */
-    public function addPriorityResearchArea(\CB\GrantBundle\Entity\ResearchArea $priorityResearchArea)
+    public function addResearchAreon(\CB\GrantBundle\Entity\ResearchArea $researchArea)
     {
-        $priorityResearchArea->addGrantCycleInstance($this);
-        $this->priorityResearchArea[] = $priorityResearchArea;
+        $this->researchArea[] = $researchArea;
+        $researchArea->addGrantCycleInstance($this);
 
         return $this;
     }
 
     /**
-     * Remove priorityResearchArea
+     * Remove researchArea
      *
-     * @param \CB\GrantBundle\Entity\ResearchArea $priorityResearchArea
+     * @param \CB\GrantBundle\Entity\ResearchArea $researchArea
      */
-    public function removePriorityResearchArea(\CB\GrantBundle\Entity\ResearchArea $priorityResearchArea)
+    public function removeResearchAreon(\CB\GrantBundle\Entity\ResearchArea $researchArea)
     {
-        $this->priorityResearchArea->removeElement($priorityResearchArea);
+        $this->researchArea->removeElement($researchArea);
     }
 
     /**
-     * Get priorityResearchArea
+     * Get researchArea
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getPriorityResearchArea()
+    public function getResearchArea()
     {
-        return $this->priorityResearchArea;
+        return $this->researchArea;
     }
+
 }

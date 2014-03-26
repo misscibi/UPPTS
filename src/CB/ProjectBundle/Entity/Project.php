@@ -109,7 +109,7 @@ class Project
      *     @ORM\JoinColumn(name="project_ID", referencedColumnName="project_ID")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="research_area_ID", referencedColumnName="research_area_ID")
+     *     @ORM\JoinColumn(name="research_area_tag", referencedColumnName="research_area_tag")
      *   }
      * )
      */

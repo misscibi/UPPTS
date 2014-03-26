@@ -78,7 +78,10 @@
                                         </div>
                                     {% endfor %}
                                 {% endif %}
-                                <a href="#" class="btn btn-default">Add Phase</a><hr>
+                                {% if cycle.grantCycleInstance is empty %}
+
+                                    <a href="#" class="btn btn-default">Add Phase</a><hr>
+                                {% endif %}
                                 <a href="{{ path('cb_grant_instance', {'id':cycle.grantCycleId}) }}" class="btn btn-default">View instances under this cycle</a>
                                 <a href="#" class="btn btn-default">Edit Name of Cycle</a>
                             </div>

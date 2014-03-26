@@ -3,30 +3,37 @@
  * Created by PhpStorm.
  * User: Christabel
  * Date: 3/27/14
- * Time: 1:54 AM
+ * Time: 2:16 AM
  */
 
 namespace CB\GrantBundle\Form\Type;
-
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ResearchAreaType extends AbstractType {
+class PhaseInstanceType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
         $builder
-            ->add('researchAreaTag', 'text', array(
-                            'label' => false,
-            ));
+            ->add('startDate', 'datetime', array(
+                                        'label' => "Start Date",
+            ))
+            ->add('endDate', 'datetime', array(
+                                        'label' => "End Date",
+            ))
+            ->add('notes', 'textarea', array(
+                                        'label' => "Notes",
+                                        'required'=>false,
+            ))
+        ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver
             ->setDefaults(array(
-                'data_class' => 'CB\GrantBundle\Entity\ResearchArea',
+                'data_class' => 'CB\GrantBundle\Entity\PhaseInstance',
                 'cascade_validation' => true,
             ))
         ;
@@ -34,6 +41,6 @@ class ResearchAreaType extends AbstractType {
 
     public function getName()
     {
-        return 'researchArea';
+        return 'phaseInstance';
     }
 } 
