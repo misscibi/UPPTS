@@ -1,3 +1,7 @@
+cb_create_project:
+  pattern: /project/create
+  defaults: { _controller: CBProjectBundle:Project:create }
+
 cb_project_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: CBProjectBundle:Default:index }

@@ -2,6 +2,11 @@ parameters:
 #    cb_account.example.class: CB\AccountBundle\Example
 
 services:
+    cb_account.form.type.account_selector:
+        class: CB\AccountBundle\Form\Type\AccountSelectorType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type, alias: account_selector }
 #    cb_account.example:
 #        class: %cb_account.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]

@@ -16,15 +16,46 @@ namespace CB\ProjectBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Proponent
  * 
- * @ORM\Table(name="proponent")
+ * @ORM\Table(name="proponent",
+ *              uniqueConstraints={@ORM\UniqueConstraint(name="unique_proponent",
+ *                                                     columns={"project_ID", "account_ID"})})
  * @ORM\Entity
+ * @UniqueEntity(fields={"projectId", "accountId"},
+ *                  message="Proponent already added to this project!")
  */
 
 class Proponent {
+
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="project_ID", type="integer")
+     */
+    private $projectId;
+
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="account_ID", type="integer")
+     */
+    private $accountId;
+
     /**
      * @var string
      * 
@@ -63,8 +94,7 @@ class Proponent {
     
     /**
      * @var \CB\AccountBundle\Entity\Account
-     * 
-     * @ORM\Id
+     *
      * @ORM\ManyToOne(targetEntity="CB\AccountBundle\Entity\Account")
      * @ORM\JoinColumns({
      *      @ORM\JoinColumn(name="account_ID", referencedColumnName="account_ID")
@@ -75,7 +105,6 @@ class Proponent {
     /**
      * @var \CB\ProjectBundle\Entity\Project
      * 
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="CB\ProjectBundle\Entity\Project")
      * @ORM\JoinColumns({
      *      @ORM\JoinColumn(name="project_ID", referencedColumnName="project_ID")
@@ -247,5 +276,74 @@ class Proponent {
     public function getProject()
     {
         return $this->project;
+    }
+
+    /**
+     * Set projectId
+     *
+     * @param integer $projectId
+     * @return Proponent
+     */
+    public function setProjectId($projectId)
+    {
+        $this->projectId = $projectId;
+
+        return $this;
+    }
+
+    /**
+     * Get projectId
+     *
+     * @return integer 
+     */
+    public function getProjectId()
+    {
+        return $this->projectId;
+    }
+
+    /**
+     * Set accountId
+     *
+     * @param integer $accountId
+     * @return Proponent
+     */
+    public function setAccountId($accountId)
+    {
+        $this->accountId = $accountId;
+
+        return $this;
+    }
+
+    /**
+     * Get accountId
+     *
+     * @return integer 
+     */
+    public function getAccountId()
+    {
+        return $this->accountId;
+    }
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     * @return Proponent
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

@@ -86,14 +86,30 @@ class PhaseInstance
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\AcceptedProjectsInPhase", mappedBy="phaseInstance")
+     * @ORM\ManyToMany(targetEntity="CB\ProjectBundle\Entity\Project", inversedBy="phaseInstanceSubmitted")
+     * @ORM\JoinTable(name="projects_ready_for_review",
+     *   joinColumns={
+     *      @ORM\JoinColumn(name="phase_instance_ID", referencedColumnName="phase_instance_ID")
+     *      },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="project_ID", referencedColumnName="project_ID")
+     *   }
+     * )
+     */
+    private $submittedProjects;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="CB\GrantBundle\Entity\AcceptedProjectsInPhase", mappedBy="phaseInstance", cascade={"ALL"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="phase_instance_ID", referencedColumnName="phase_instance_ID")
      * })
      */
     private $acceptedProjectsInPhase;
     
-    public function __construct() {         
+    public function __construct() {
+        $this->submittedProjects = new ArrayCollection();
         $this->acceptedProjectsInPhase = new ArrayCollection();
     }
 
@@ -301,5 +317,38 @@ class PhaseInstance
     public function getAcceptedProjectsInPhase()
     {
         return $this->acceptedProjectsInPhase;
+    }
+
+    /**
+     * Add submittedProjects
+     *
+     * @param \CB\ProjectBundle\Entity\Project $submittedProjects
+     * @return PhaseInstance
+     */
+    public function addSubmittedProject(\CB\ProjectBundle\Entity\Project $submittedProjects)
+    {
+        $this->submittedProjects[] = $submittedProjects;
+
+        return $this;
+    }
+
+    /**
+     * Remove submittedProjects
+     *
+     * @param \CB\ProjectBundle\Entity\Project $submittedProjects
+     */
+    public function removeSubmittedProject(\CB\ProjectBundle\Entity\Project $submittedProjects)
+    {
+        $this->submittedProjects->removeElement($submittedProjects);
+    }
+
+    /**
+     * Get submittedProjects
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSubmittedProjects()
+    {
+        return $this->submittedProjects;
     }
 }

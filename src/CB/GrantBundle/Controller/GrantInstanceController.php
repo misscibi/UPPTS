@@ -11,6 +11,7 @@ namespace CB\GrantBundle\Controller;
 
 use CB\GrantBundle\Entity\GrantCycleInstance;
 use CB\GrantBundle\Entity\PhaseInstance;
+use CB\GrantBundle\Form\Model\ProjectToCycleType;
 use CB\GrantBundle\Form\Type\GrantCycleInstanceType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -75,5 +76,51 @@ class GrantInstanceController extends Controller {
                 'form'=>$instanceForm->createView(),
             ));
         }
+    }
+
+    public function addProjectAction($id, Request $request) {
+
+        $em =  $this->getDoctrine()->getManager();
+        // grant cycle instance id
+        $instance = $em->getRepository('CBGrantBundle:GrantCycleInstance')->find($id);
+
+        $formType = new ProjectToCycleType();
+        $formType->setChoices($this->findProjects($em));
+
+        $form = $this->createForm($formType);
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+            $projectIds = $form['project']->getData();
+
+            foreach( $projectIds as $pid ) {
+                $project = $em->getRepository('CBProjectBundle:Project')->find($pid);
+                $instance->addProject($project);
+            }
+
+            $em->persist($instance);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('cb_grant_instance', array('id'=>$instance->getGrantCycle()->getGrantCycleId())));
+        } else {
+
+            return $this->render('CBMainBundle:Default:CreateForm.html.twig', array(
+                'form'=>$form->createView(),
+            ));
+        }
+
+    }
+
+
+    private function findProjects($em) {
+        $proponentObjects = $em->getRepository('CBProjectBundle:Proponent')->findByAccountId($this->getUser()->getAccountId());
+
+        $projects = new ArrayCollection();
+
+        foreach($proponentObjects as $object) {
+            $projects[] = $object->getProject();
+        }
+
+        return $projects;
     }
 } 

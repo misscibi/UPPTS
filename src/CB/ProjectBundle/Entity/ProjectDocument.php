@@ -82,10 +82,22 @@ class ProjectDocument
      */
     private $grantDocument;
 
+
+
+    /**
+     * @var \CB\GrantBundle\Entity\PhaseInstance
+     *
+     * @ORM\ManyToOne(targetEntity="CB\GrantBundle\Entity\PhaseInstance")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="phase_instance_ID", referencedColumnName="phase_instance_ID")
+     * })
+     */
+    private $phaseInstance;
+
     /**
      * @var \CB\ProjectBundle\Entity\Project
      *
-     * @ORM\ManyToOne(targetEntity="CB\ProjectBundle\Entity\Project")
+     * @ORM\ManyToOne(targetEntity="CB\ProjectBundle\Entity\Project", inversedBy="projectDocuments")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="project_ID", referencedColumnName="project_ID")
      * })
@@ -395,5 +407,28 @@ class ProjectDocument
         if ($file = $this->getAbsolutePath()) {
             unlink($file);
         }
+    }
+
+    /**
+     * Set phaseInstance
+     *
+     * @param \CB\GrantBundle\Entity\PhaseInstance $phaseInstance
+     * @return ProjectDocument
+     */
+    public function setPhaseInstance(\CB\GrantBundle\Entity\PhaseInstance $phaseInstance = null)
+    {
+        $this->phaseInstance = $phaseInstance;
+
+        return $this;
+    }
+
+    /**
+     * Get phaseInstance
+     *
+     * @return \CB\GrantBundle\Entity\PhaseInstance 
+     */
+    public function getPhaseInstance()
+    {
+        return $this->phaseInstance;
     }
 }

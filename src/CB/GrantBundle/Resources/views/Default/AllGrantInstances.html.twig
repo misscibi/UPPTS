@@ -29,9 +29,10 @@
                         {% if phase.notes %}<hr> <div class="row">{{ phase.notes }}</div>{% endif %}
                     </div>
                     <div class="col-xs-2">
-                        <a href="#" class="btn btn-default">View Proposals</a>
+                        <a href="{{ path('cb_view_submitted_proposals',{'id':phase.phaseInstanceId}) }}" class="btn btn-default">View Proposals</a>
                     </div>
                 {% endfor %}
+                <a href="{{ path('cb_add_project_to_cycle',{'id':cycle.grantCycleInstanceId}) }}" class="btn btn-default">Add Project</a>
             </div>
 
             {% endfor %}

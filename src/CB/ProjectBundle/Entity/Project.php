@@ -83,22 +83,27 @@ class Project
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="CB\ProjectBundle\Entity\Proponent", mappedBy="project")
+     * @ORM\OneToMany(targetEntity="CB\ProjectBundle\Entity\Proponent", mappedBy="project", cascade={"ALL"})
      * @ORM\JoinColumns({
      *      @ORM\JoinColumn(name="project_ID", referencedColumnName="project_ID")
      * })
      */
     private $proponent;
-    
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="CB\ProjectBundle\Entity\ProjectReadyForReview", mappedBy="project")
-     * @ORM\JoinColumns({
+     * @ORM\ManyToMany(targetEntity="CB\GrantBundle\Entity\PhaseInstance", mappedBy="submittedProjects", cascade={"ALL"})
+     * @ORM\JoinTable(name="projects_ready_for_review",
+     *   joinColumns={
      *      @ORM\JoinColumn(name="project_ID", referencedColumnName="project_ID")
-     * })
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="phase_instance_ID", referencedColumnName="phase_instance_ID")
+     *      }
+     * )
      */
-    private $projectReadyForReview;
+    private $phaseInstanceSubmitted;
     
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -114,29 +119,27 @@ class Project
      * )
      */
     private $projectResearchArea;
+
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="CB\ProjectBundle\Entity\ProjectDocument", mappedBy="project", cascade={"ALL"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="project_ID", referencedColumnName="project_ID")
+     * })
+     */
+    private $projectDocuments;
     
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="CB\ReviewerBundle\Entity\Reviewer", mappedBy="project")
+     * @ORM\OneToMany(targetEntity="CB\ReviewerBundle\Entity\Reviewer", mappedBy="project", cascade={"ALL"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="project_ID", referencedColumnName="project_ID")
      * })
      */
     private $reviewer;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->fundedProject = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->grantCycleInstance = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->proponent = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->projectReadyForReview = new ArrayCollection();
-        $this->projectResearchArea = new ArrayCollection();
-        $this->reviewer = new ArrayCollection();
-    }
 
 
     /**
@@ -315,6 +318,7 @@ class Project
      */
     public function addProponent(\CB\ProjectBundle\Entity\Proponent $proponent)
     {
+        $proponent->setProject($this);
         $this->proponent[] = $proponent;
 
         return $this;
@@ -381,6 +385,7 @@ class Project
      */
     public function addReviewer(\CB\ReviewerBundle\Entity\Reviewer $reviewer)
     {
+        $reviewer->setProject($this);
         $this->reviewer[] = $reviewer;
 
         return $this;
@@ -412,6 +417,122 @@ class Project
      * @param \CB\GrantBundle\Entity\ResearchArea $projectResearchArea
      * @return Project
      */
+    public function addProjectResearchAreon(\CB\GrantBundle\Entity\ResearchArea $projectResearchArea)
+    {
+        $projectResearchArea->addProject($this);
+        $this->projectResearchArea[] = $projectResearchArea;
+
+        return $this;
+    }
+
+    /**
+     * Remove projectResearchArea
+     *
+     * @param \CB\GrantBundle\Entity\ResearchArea $projectResearchArea
+     */
+    public function removeProjectResearchAreon(\CB\GrantBundle\Entity\ResearchArea $projectResearchArea)
+    {
+        $this->projectResearchArea->removeElement($projectResearchArea);
+    }
+
+    /**
+     * Get projectResearchArea
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProjectResearchArea()
+    {
+        return $this->projectResearchArea;
+    }
+
+    /**
+     * Add phaseInstanceSubmitted
+     *
+     * @param \CB\GrantBundle\Entity\PhaseInstance $phaseInstanceSubmitted
+     * @return Project
+     */
+    public function addPhaseInstanceSubmitted(\CB\GrantBundle\Entity\PhaseInstance $phaseInstanceSubmitted)
+    {
+        $phaseInstanceSubmitted->addSubmittedProject($this);
+        $this->phaseInstanceSubmitted[] = $phaseInstanceSubmitted;
+
+        return $this;
+    }
+
+    /**
+     * Remove phaseInstanceSubmitted
+     *
+     * @param \CB\GrantBundle\Entity\PhaseInstance $phaseInstanceSubmitted
+     */
+    public function removePhaseInstanceSubmitted(\CB\GrantBundle\Entity\PhaseInstance $phaseInstanceSubmitted)
+    {
+        $this->phaseInstanceSubmitted->removeElement($phaseInstanceSubmitted);
+    }
+
+    /**
+     * Get phaseInstanceSubmitted
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhaseInstanceSubmitted()
+    {
+        return $this->phaseInstanceSubmitted;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->fundedProject = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->grantCycleInstance = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->proponent = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->projectReadyForReview = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->phaseInstanceSubmitted = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->projectResearchArea = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->projectDocuments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->reviewer = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add projectDocuments
+     *
+     * @param \CB\ProjectBundle\Entity\ProjectDocument $projectDocuments
+     * @return Project
+     */
+    public function addProjectDocument(\CB\ProjectBundle\Entity\ProjectDocument $projectDocuments)
+    {
+        $projectDocuments->setProject($this);
+        $this->projectDocuments[] = $projectDocuments;
+
+        return $this;
+    }
+
+    /**
+     * Remove projectDocuments
+     *
+     * @param \CB\ProjectBundle\Entity\ProjectDocument $projectDocuments
+     */
+    public function removeProjectDocument(\CB\ProjectBundle\Entity\ProjectDocument $projectDocuments)
+    {
+        $this->projectDocuments->removeElement($projectDocuments);
+    }
+
+    /**
+     * Get projectDocuments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProjectDocuments()
+    {
+        return $this->projectDocuments;
+    }
+
+    /**
+     * Add projectResearchArea
+     *
+     * @param \CB\GrantBundle\Entity\ResearchArea $projectResearchArea
+     * @return Project
+     */
     public function addProjectResearchArea(\CB\GrantBundle\Entity\ResearchArea $projectResearchArea)
     {
         $this->projectResearchArea[] = $projectResearchArea;
@@ -427,15 +548,5 @@ class Project
     public function removeProjectResearchArea(\CB\GrantBundle\Entity\ResearchArea $projectResearchArea)
     {
         $this->projectResearchArea->removeElement($projectResearchArea);
-    }
-
-    /**
-     * Get projectResearchArea
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getProjectResearchArea()
-    {
-        return $this->projectResearchArea;
     }
 }

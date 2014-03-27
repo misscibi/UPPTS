@@ -1,0 +1,26 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <h1>Submitted Proposals</h1><hr>
+    {% if phaseInstance.submittedProjects %}
+        {% for project in phaseInstance.submittedProjects %}
+            <div class="row well">
+                <div class="col-xs-10">
+                    <h3>{{ project.projectTitle }}</h3><br>
+                        <small>{% for proponent in project.proponent %}
+                                {{ proponent.account.lastName }} {{ proponent.account.firstName }},
+                            {% endfor %}</small>
+                </div>
+                <div class="col-xs-2">
+                    <a href="#" class="btn btn-default">View Project</a>
+                    <a href="#" class="btn btn-default">Accept Project</a>
+                </div>
+
+                <div class=""></div>
+            </div>
+            {% endfor %}
+        {% else %}
+        No proposals submitted yet as of today.
+
+        {% endif %}
+{% endblock %}

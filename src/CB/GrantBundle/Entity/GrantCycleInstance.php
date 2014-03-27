@@ -221,4 +221,27 @@ class GrantCycleInstance
         return $this->researchArea;
     }
 
+
+    /**
+     * Add researchArea
+     *
+     * @param \CB\GrantBundle\Entity\ResearchArea $researchArea
+     * @return GrantCycleInstance
+     */
+    public function addResearchArea(\CB\GrantBundle\Entity\ResearchArea $researchArea)
+    {
+        $this->researchArea[] = $researchArea;
+
+        return $this;
+    }
+
+    /**
+     * Remove researchArea
+     *
+     * @param \CB\GrantBundle\Entity\ResearchArea $researchArea
+     */
+    public function removeResearchArea(\CB\GrantBundle\Entity\ResearchArea $researchArea)
+    {
+        $this->researchArea->removeElement($researchArea);
+    }
 }

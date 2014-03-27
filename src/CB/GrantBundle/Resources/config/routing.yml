@@ -1,4 +1,12 @@
 
+cb_add_project_to_cycle:
+  pattern: /grant/{id}/project/add
+  defaults: {_controller: CBGrantBundle:GrantInstance:addProject }
+
+cb_view_submitted_proposals:
+  pattern: /grant/phase/instance/{id}
+  defaults: {_controller: CBGrantBundle:PhaseInstance:view }
+
 cb_create_grant_instance:
   pattern: /grant/{id}/instance/create
   defaults: { _controller: CBGrantBundle:GrantInstance:create }
