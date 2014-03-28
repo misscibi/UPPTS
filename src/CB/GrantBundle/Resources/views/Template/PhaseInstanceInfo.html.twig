@@ -18,9 +18,19 @@
     <div class="well well-sm" style="margin: 25px 0;">
         {% for source in instance.phase.grantPhaseRequiredDocument %}
 
-            <strong>{% if app.request.attributes.get('user') == 'proponent' %}<a href="#upload">
+            <strong>{% if app.request.attributes.get('user') == 'proponent' %}
+                    <a href="#upload">
                 {{ source.requiredDocumentsName }}</a>
-            {% elseif app.request.attributes.get('user') == 'reviewer' %}<a href="#download">
+            {% elseif app.request.attributes.get('_route') == 'cb_phase_project_permalink' %}
+                <a href="
+                    {% for document in project.projectDocuments %}
+
+                        {% if document.grantDocument == source %}
+                            {{ asset(document.getWebPath) }}
+                        {% endif %}
+                    {% endfor %}
+
+                    ">
                 {{ source.requiredDocumentsName }}</a>
             {% else %}{{ source.requiredDocumentsName }}
                 {% endif %}

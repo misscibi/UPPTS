@@ -16,7 +16,7 @@
                 {% endif %}
             </div>
             <div class="tab-pane fade" id="phase">
-                {% include 'CBGrantBundle:Template:PhaseInstanceInfo.html.twig' with {'instance':instance} %}
+                {% include 'CBGrantBundle:Template:PhaseInstanceInfo.html.twig' with {'instance':instance, 'project':project} %}
             </div>
             <div class="tab-pane fade" id="grant">
                 {% include 'CBGrantBundle:Template:GrantInstanceInfo.html.twig' with {'instance':instance.grantCycleInstance} %}
