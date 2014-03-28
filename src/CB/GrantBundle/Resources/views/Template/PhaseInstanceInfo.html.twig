@@ -1,0 +1,32 @@
+{% if instance %}
+
+    <h3>{{ instance.phase.phaseTitle }}</h3><hr>
+    <small>
+    <div class="row">
+        <span class="col-xs-2"><strong>Start Date: </strong></span><span class="col-xs-10">{{ instance.startDate | date('Y-M-d H:i:s') }}</span><br>
+
+    </div>
+    <div class="row">
+        <span class="col-xs-2"><strong>End Date: </strong></span><span class="col-xs-10">{{ instance.endDate | date('Y-M-d H:i:s') }}</span>
+    </div>
+    <div class="row">
+        <span class="col-xs-2"><strong>Open To Public: </strong></span><span class="col-xs-10">{{ instance.phase.isOpenToAll == 1 ? "Yes":"No" }}</span>
+    </div>
+</small>
+{% if instance.notes %}<hr> <div class="row">{{ instance.notes }}</div>{% endif %}
+
+    <div class="well well-sm" style="margin: 25px 0;">
+        {% for source in instance.phase.grantPhaseRequiredDocument %}
+
+            <strong>{% if app.request.attributes.get('user') == 'proponent' %}<a href="#upload">
+                {{ source.requiredDocumentsName }}</a>
+            {% elseif app.request.attributes.get('user') == 'reviewer' %}<a href="#download">
+                {{ source.requiredDocumentsName }}</a>
+            {% else %}{{ source.requiredDocumentsName }}
+                {% endif %}
+            </strong>- {{ source.requiredDocumentsDescription }}
+
+        {% endfor %}
+    </div>
+
+{% endif %}

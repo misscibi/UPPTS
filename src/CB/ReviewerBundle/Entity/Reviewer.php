@@ -3,12 +3,17 @@
 namespace CB\ReviewerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Reviewer
  *
- * @ORM\Table(name="reviewer", indexes={@ORM\Index(name="fk_Reviewer_Account1_idx", columns={"account_ID"}), @ORM\Index(name="fk_Reviewer_Project1_idx", columns={"project_ID"})})
+ * @ORM\Table(name="reviewer",
+ *              indexes={@ORM\Index(name="fk_Reviewer_Account1_idx", columns={"account_ID"}), @ORM\Index(name="fk_Reviewer_Project1_idx", columns={"project_ID"})},
+ *              uniqueConstraints={@ORM\UniqueConstraint(name="unique_reviewer", columns={"account_ID","project_ID","grant_cycle_instance_ID"})})
  * @ORM\Entity
+ * @UniqueEntity(fields={"account", "project","grantCycleInstance"},
+ *               message="You have already added one or more of the accounts listed as reviewer.")
  */
 class Reviewer
 {
@@ -41,6 +46,16 @@ class Reviewer
      */
     private $project;
 
+
+    /**
+     * @var \CB\GrantBundle\Entity\GrantCycleInstance
+     *
+     * @ORM\ManyToOne(targetEntity="CB\GrantBundle\Entity\GrantCycleInstance")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="grant_cycle_instance_ID", referencedColumnName="grant_cycle_instance_ID")
+     * })
+     */
+    private $grantCycleInstance;
 
 
     /**
@@ -97,5 +112,28 @@ class Reviewer
     public function getProject()
     {
         return $this->project;
+    }
+
+    /**
+     * Set grantCycleInstance
+     *
+     * @param \CB\GrantBundle\Entity\GrantCycleInstance $grantCycleInstance
+     * @return Reviewer
+     */
+    public function setGrantCycleInstance(\CB\GrantBundle\Entity\GrantCycleInstance $grantCycleInstance = null)
+    {
+        $this->grantCycleInstance = $grantCycleInstance;
+
+        return $this;
+    }
+
+    /**
+     * Get grantCycleInstance
+     *
+     * @return \CB\GrantBundle\Entity\GrantCycleInstance 
+     */
+    public function getGrantCycleInstance()
+    {
+        return $this->grantCycleInstance;
     }
 }

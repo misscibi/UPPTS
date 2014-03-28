@@ -6,19 +6,55 @@
 
         <!-- Tab panes -->
         <div class="tab-content col-xs-9">
-            <div class="tab-pane fade in active" id="phases">
+            <div class="tab-pane fade in active" id="projects">
+
+                {% for project in instance.submittedProjects %}
+                    {% if not project in instance.acceptedProjectsInPhase %}
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <a href="{{ path('cb_phase_project_permalink', {'user':'funder','project':project.projectId,'phase':instance.phaseInstanceId}) }}">
+                                    {{ project.projectTitle }}
+                                </a>
+                                <span style="display:block; float:right;">
+                                    <a href="{{ path('cb_approve_project_in_phase',{'project':project.projectId, 'instance':instance.phaseInstanceId}) }}">
+                                        Approve Project
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
 
             </div>
-            <div class="tab-pane fade" id="info">
+            <div class="tab-pane fade" id="approved">
 
+                {% for obj in instance.acceptedProjectsInPhase %}
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <a href="{{ path('cb_phase_project_permalink', {'user':'funder','project':obj.project.projectId,'phase':instance.phaseInstanceId}) }}">
+                            {{ obj.project.projectTitle }}
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+            <div class="tab-pane fade" id="phase">
+                {% include 'CBGrantBundle:Template:PhaseInstanceInfo.html.twig' with {'instance':instance} %}
+            </div>
+            <div class="tab-pane fade" id="grant">
+                {% include 'CBGrantBundle:Template:GrantInstanceInfo.html.twig' with {'instance':instance.grantCycleInstance} %}
             </div>
         </div>
 
 
         <!-- Nav tabs -->
         <ul class="nav nav-pills nav-stacked col-xs-3">
-            <li class="active"><a href="#phases" data-toggle="tab">Phases</a></li>
-            <li><a href="#info" data-toggle="tab">Grant Info</a></li>
+            <li class="active"><a href="#projects" data-toggle="tab">Projects Awaiting Approval</a></li>
+            <li><a href="#approved" data-toggle="tab">Approved Projects</a></li>
+            <hr>
+            <li><a href="#phase" data-toggle="tab">Phase Info</a></li>
+            <li><a href="#grant" data-toggle="tab">Grant Info</a></li>
 
         </ul>
 

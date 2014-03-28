@@ -9,6 +9,7 @@
 namespace CB\GrantBundle\Controller;
 
 
+use CB\GrantBundle\Form\Model\GrantTemplate;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use CB\GrantBundle\Form\Type\GrantCycleType;
@@ -25,7 +26,9 @@ class GrantController extends Controller {
         ));
     }
 
-    public function viewAction($id, Request $request) {
+
+
+    public function viewAction($id, $user, Request $request) {
         $grant = $this->getDoctrine()->getManager()->getRepository('CBGrantBundle:Grant')->find($id);
 
         $grantCycle = new GrantCycle();
@@ -44,6 +47,33 @@ class GrantController extends Controller {
             return $this->render('CBGrantBundle:Default:GrantPermalink.html.twig', array(
                 'grant'=>$grant,
                 'cycle_form'=>$cycleForm->createView(),
+                'user'=>$user,
+            ));
+        }
+    }
+
+    public function addTemplateAction($grant, Request $request) {
+        $grantObject = $this->getDoctrine()->getManager()->getRepository('CBGrantBundle:Grant')->find($grant);
+
+        $grantCycle = new GrantCycle();
+        $form = $this->createForm(new GrantTemplate(), $grantCycle);
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+            $grantCycle->setGrant($grantObject);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($grantCycle);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('cb_grant_permalink', array(
+                'user'=>'funder',
+                'id'=>$grant,
+            )));
+        } else {
+
+            return $this->render('CBMainBundle:Default:CreateForm.html.twig', array(
+                'form'=>$form->createView(),
+                'title'=>'Create Template For This Grant'
             ));
         }
     }

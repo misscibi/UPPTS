@@ -307,16 +307,16 @@ class ProjectDocument
     
     public function getAbsolutePath()
     {
-        return null === $this->grantSourcePath
+        return null === $this->documentPath
             ? null
-            : $this->getUploadRootDir().'/'.$this->grantSourcePath;
+            : $this->getUploadRootDir().'/'.$this->documentPath;
     }
 
     public function getWebPath()
     {
-        return null === $this->grantSourcePath
+        return null === $this->documentPath
             ? null
-            : $this->getUploadDir().'/'.$this->grantSourcePath;
+            : $this->getUploadDir().'/'.$this->documentPath;
     }
 
     protected function getUploadRootDir()

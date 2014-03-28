@@ -9,7 +9,7 @@
             <div class="tab-pane fade in active" id="phases">
                 {% for phase in instance.phaseInstance %}
 
-                    {% include 'CBGrantBundle:Template:PhaseInstanceList.html.twig' with {'instance':phase} %}
+                    {% include 'CBGrantBundle:Template:PhaseInstanceList.html.twig' with {'instance':phase, 'project':project} %}
 
                 {% endfor %}
             </div>

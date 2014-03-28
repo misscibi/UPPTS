@@ -18,11 +18,13 @@ class DashboardController extends Controller {
         $announcements = $em->getRepository('CBAccountBundle:Announcement')->findAll();
         $fundedGrants = $em->getRepository('CBAccountBundle:Account')->find($this->getUser()->getAccountId())->getFundedGrant();
         $projects = $this->findProjects($em);
+        $reviewer = $em->getRepository('CBReviewerBundle:Reviewer')->findByAccount($this->getUser());
 
         return $this->render('CBAccountBundle:Default:Dashboard.html.twig', array(
             'announcements'=>$announcements,
             'projects'=>$projects,
-            'grants'=>$fundedGrants
+            'grants'=>$fundedGrants,
+            'reviewer'=>$reviewer,
         ));
     }
 

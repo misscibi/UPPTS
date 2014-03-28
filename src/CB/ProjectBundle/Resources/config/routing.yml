@@ -1,4 +1,9 @@
-cb_proponent_project_permalink:
+
+cb_proponent_upload_document:
+  pattern: /document/{document}/{phase}/{project}
+  defaults: {_controller: CBProjectBundle:Document:create}
+
+cb_project_permalink:
   pattern: /{user}/project/{id}
   defaults: { _controller: CBProjectBundle:Project:view }
 

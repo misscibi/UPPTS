@@ -1,3 +1,16 @@
+
+cb_add_review:
+  pattern: /review/{reviewer}/{instance}/add
+  defaults: {_controller: CBReviewerBundle:Review:add }
+
+cb_phase_project_permalink:
+  pattern: /{user}/project/{project}/phase/{phase}/{review}
+  defaults: {_controller: CBReviewerBundle:PhaseProject:view, review: 0 }
+
+cb_add_reviewer:
+  pattern: /project/{project}/{instance}/reviewer/add
+  defaults: {_controller: CBReviewerBundle:Reviewer:add }
+
 cb_reviewer_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: CBReviewerBundle:Default:index }

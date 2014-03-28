@@ -1,0 +1,13 @@
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h3>{{ review.reviewTitle }}</h3>
+        <small>by {{ review.reviewer.account.firstName }} {{ review.reviewer.account.lastName }}
+        <br>Posted on {{ review.createTimestamp | date('Y-M-d H:i:s') }}
+        <br>Rating: {{ review.reviewRating }} / 10
+        </small>
+        <hr>
+        {{ review.reviewDescription }}
+    </div>
+</div>
+

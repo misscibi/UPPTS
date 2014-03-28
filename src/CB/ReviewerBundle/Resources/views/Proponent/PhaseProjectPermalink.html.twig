@@ -7,7 +7,13 @@
         <!-- Tab panes -->
         <div class="tab-content col-xs-9">
             <div class="tab-pane fade in active" id="reviews">
-
+                {% if reviews is empty %}
+                    No reviews as of today.
+                {% else %}
+                    {% for review in reviews %}
+                        {% include 'CBReviewerBundle:Template:ReviewInfo.html.twig' with {'review':review} %}
+                    {% endfor %}
+                {% endif %}
             </div>
             <div class="tab-pane fade" id="phase">
                 {% include 'CBGrantBundle:Template:PhaseInstanceInfo.html.twig' with {'instance':instance} %}
@@ -23,7 +29,7 @@
 
         <!-- Nav tabs -->
         <ul class="nav nav-pills nav-stacked col-xs-3">
-            <li class="active"><a href="#reviews" data-toggle="tab">Reviews</a></li><hr>
+            <li class="active"><a href="#reviews" data-toggle="tab">Reviews Submitted</a></li><hr>
             <li><a href="#phase" data-toggle="tab">Phase Info</a></li>
             <li><a href="#grant" data-toggle="tab">Grant Info</a></li>
             <li><a href="#project" data-toggle="tab">Project Info</a></li>

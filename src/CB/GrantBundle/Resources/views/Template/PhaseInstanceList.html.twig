@@ -4,7 +4,7 @@
         <div class="panel-body">
 
         {% if app.request.attributes.get('user') == 'proponent' %}
-        <a href="#" class="btn btn-default" style="float: right; display:block;">Submit for Review</a>
+        <a href="{{ path('cb_submit_project_to_phase_instance',{'project':project.projectId, 'phase':instance.phaseInstanceId}) }}" class="btn btn-default" style="float: right; display:block;">Submit for Review</a>
         {% endif %}
 
         <h3>
@@ -12,7 +12,7 @@
         {% if app.request.attributes.get('user') == 'funder' %}
             {{ path('cb_phase_instance_permalink',{'user':app.request.attributes.get('user'), 'phase':instance.phaseInstanceId }) }}
         {% else %}
-            {{ path('cb_phase_instance_permalink',{'user':app.request.attributes.get('user'), 'phase':instance.phaseInstanceId, 'project':app.request.attributes.get('project') }) }}
+            {{ path('cb_phase_project_permalink',{'user':app.request.attributes.get('user'), 'phase':instance.phaseInstanceId, 'project':app.request.attributes.get('project') }) }}
         {% endif %}
         ">{{ phase.phase.phaseTitle }}</a>
         </h3><hr>
@@ -31,8 +31,16 @@
             <div class="well well-sm" style="margin: 25px 0;">
                 {% for source in instance.phase.grantPhaseRequiredDocument %}
 
-                    <a href="#upload">
-                    <strong>{{ source.requiredDocumentsName }}</strong></a> - {{ source.requiredDocumentsDescription }}
+                    <strong>
+                        {% set c = 0 %}
+                        {% for document in project.projectDocuments %}
+                            {% if document.phaseInstance == instance and document.grantDocument == source %}
+                                <a href="{{ asset(document.getWebPath) }}">{{ source.requiredDocumentsName }}</a>
+                                {% set c = c + 1 %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if c == 0 %}{{ source.requiredDocumentsName }}{% endif %}
+                    </strong> - {{ source.requiredDocumentsDescription }} {% if c == 0 %}(<a href="{{ path('cb_proponent_upload_document', {'phase':instance.phaseInstanceId, 'project':app.request.attributes.get('project'), 'document':source.grantDocumentId}) }}">Upload</a>){% endif %}
 
                 {% endfor %}
             </div>

@@ -12,6 +12,7 @@ namespace CB\GrantBundle\Controller;
 use CB\GrantBundle\Entity\GrantCycleInstance;
 use CB\GrantBundle\Entity\PhaseInstance;
 use CB\GrantBundle\Form\Model\ProjectToCycleType;
+use CB\GrantBundle\Form\Model\SelectTemplateType;
 use CB\GrantBundle\Form\Type\GrantCycleInstanceType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -48,7 +49,32 @@ class GrantInstanceController extends Controller {
 
     }
 
-    public function createAction($id, Request $request) {
+    // id = grant id
+    public function selectAction($id, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $grant = $em->getRepository('CBGrantBundle:Grant')->find($id);
+
+        $templateType = new SelectTemplateType();
+        $templateType->setChoices($grant->getGrantCycle());
+        $form = $this->createForm($templateType);
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+            $data = $form['template']->getData();
+
+            return $this->redirect($this->generateUrl('cb_create_grant_instance', array(
+                'id'=>$data,
+            )));
+        } else {
+
+            return $this->render('CBMainBundle:Default:CreateForm.html.twig', array(
+                'form'=>$form->createView(),
+                'title'=>'Select Template for this Instance'
+            ));
+
+        }
+
+        /*
         $em = $this->getDoctrine()->getManager();
         $grantCycle = $em->getRepository('CBGrantBundle:GrantCycle')->find($id);
 
@@ -94,6 +120,66 @@ class GrantInstanceController extends Controller {
             return $this->render('CBGrantBundle:Default:CreateGrantInstance.html.twig', array(
                 'form'=>$instanceForm->createView(),
             ));
+        }
+        */
+    }
+
+    // id - grant cycle id
+    public function createAction ($id, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $grantCycle = $em->getRepository('CBGrantBundle:GrantCycle')->find($id);
+
+        $grantCycleInstance = new GrantCycleInstance();
+        $phases = $grantCycle->getPhase();
+        $phaseInstances = new ArrayCollection();
+
+        $i = 0;
+        $len = count($phases);
+        foreach( $phases as $phase ) {
+
+            $phaseInstance = new PhaseInstance();
+            $phaseInstances[] = $phaseInstance;
+            $phaseInstance->setPhase($phase);
+
+            if ($i != 0) {
+                // not first
+                $phaseInstance->setPreviousPhaseInstance($phaseInstances->get($i-1));
+                $phaseInstances->get($i-1)->setNextPhaseInstance($phaseInstance);
+            }
+            $i++;
+
+            $grantCycleInstance->addPhaseInstance($phaseInstance);
+        }
+
+        $form = $this->createForm(new GrantCycleInstanceType(), $grantCycleInstance);
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+
+
+            $grantCycleInstance->setGrantCycle($grantCycle);
+
+            $areas = $grantCycleInstance->getResearchArea();
+            foreach($grantCycleInstance->getResearchArea() as $area) {
+                if($researchArea = $em->getRepository('CBGrantBundle:ResearchArea')->find($area->getResearchAreaTag())) {
+                    $areas[] = $researchArea;
+                    $grantCycleInstance->removeResearchAreon($area);
+                }
+            }
+
+            $em->persist($grantCycleInstance);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('cb_grant_permalink', array(
+                'id'=>$grantCycle->getGrant()->getGrantId(),
+                'user'=>'funder'
+            )));
+        } else {
+
+            return $this->render('CBMainBundle:Default:CreateForm.html.twig', array(
+                'form'=>$form->createView(),
+            ));
+
         }
     }
 

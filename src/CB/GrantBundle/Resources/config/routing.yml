@@ -1,3 +1,28 @@
+
+cb_approve_project_in_phase:
+  pattern: /approve/{instance}/{project}
+  defaults: {_controller: CBGrantBundle:PhaseInstance:approve }
+
+cb_select_grant_template:
+  pattern: /grant/{id}/instance/select
+  defaults: { _controller: CBGrantBundle:GrantInstance:select }
+
+cb_create_grant_instance:
+  pattern: /grant/{id}/instance/create
+  defaults: { _controller: CBGrantBundle:GrantInstance:create }
+
+cb_add_grant_template:
+  pattern: /{grant}/template/add
+  defaults: {_controller: CBGrantBundle:Grant:addTemplate}
+
+cb_grant_permalink:
+  pattern: /{user}/grant/{id}/info
+  defaults: { _controller: CBGrantBundle:Grant:view }
+
+cb_submit_project_to_phase_instance:
+  pattern: /submit/phase/{phase}/{project}
+  defaults: {_controller: CBGrantBundle:PhaseInstance:submitProject}
+
 cb_phase_instance_permalink:
   pattern: /{user}/phase/{phase}/{project}
   defaults: { _controller: CBGrantBundle:PhaseInstance:view, project: 0 }
@@ -14,9 +39,6 @@ cb_view_submitted_proposals:
   pattern: /grant/phase/instance/{id}
   defaults: {_controller: CBGrantBundle:PhaseInstance:view }
 
-cb_create_grant_instance:
-  pattern: /grant/{id}/instance/create
-  defaults: { _controller: CBGrantBundle:GrantInstance:create }
 
 cb_grant_instance:
   pattern: /grant/{id}/instance
@@ -25,10 +47,6 @@ cb_grant_instance:
 funder_create_grant:
     pattern: /grant/create
     defaults: { _controller: CBGrantBundle:Create:grant }
-
-cb_grant_permalink:
-  pattern: /grant/{id}
-  defaults: { _controller: CBGrantBundle:Grant:view }
 
 cb_all_grants:
   pattern: /grants
