@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class GrantInstanceController extends Controller {
+    /*
     public function viewAction($id) {
         $em = $this->getDoctrine()->getManager();
         $grantCycle = $em->getRepository('CBGrantBundle:GrantCycle')->find($id);
@@ -27,6 +28,24 @@ class GrantInstanceController extends Controller {
            'cycleInstance' => $cycleInstance,
            'grantCycle' => $grantCycle,
         ));
+    }*/
+
+    public function viewAction($user, $grant, $project) {
+        $em = $this->getDoctrine()->getManager();
+        $grantCycle = $em->getRepository('CBGrantBundle:GrantCycleInstance')->find($grant);
+        $projectObject = $em->getRepository('CBProjectBundle:Project')->find($project);
+
+        if($user === 'funder') {
+            return $this->render('CBGrantBundle:Funder:GrantInstancePermalink.html.twig', array(
+                'instance'=>$grantCycle
+            ));
+        } else {
+            return $this->render('CBGrantBundle:Proponent:GrantInstancePermalink.html.twig', array(
+                'project'=>$projectObject,
+                'instance'=>$grantCycle
+            ));
+        }
+
     }
 
     public function createAction($id, Request $request) {

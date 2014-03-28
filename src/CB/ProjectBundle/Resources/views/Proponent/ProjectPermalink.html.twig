@@ -1,0 +1,16 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    {% include 'CBProjectBundle:Template:ProjectInfo.html.twig' with {'project':project} %}
+
+    {% if project.grantCycleInstance is not empty %}
+        <div style="margin-top: 50px;"><h4>Grants Associated With This Project</h4></div>
+        {% for instance in project.grantCycleInstance %}
+            <a href="{{ path('cb_grant_instance_permalink', {'user':'proponent', 'grant':instance.grantCycleInstanceId, 'project':project.projectId}) }}">
+            {% include 'CBGrantBundle:Template:GrantInstanceList.html.twig' with {'instance':instance} %}
+            </a>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

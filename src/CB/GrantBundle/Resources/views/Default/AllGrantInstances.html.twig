@@ -8,32 +8,8 @@
 
         {% for cycle in cycleInstance %}
 
-            <div class="row well">
-                {% if cycle.researchArea is not empty %}
-                    <span class="col-xs-2"><strong>Research Areas: </strong></span><span class="col-xs-10" style="font-style: italic;">{% for area in cycle.researchArea %} {{ area.researchAreaTag }},{% endfor %}</span><hr>
+            {% include 'CBGrantBundle:Template:GrantInstanceList.html.twig' with {'instance':cycle} %}
 
-                    {% endif %}
-                {% for phase in cycle.phaseInstance %}
-                    <h4>{{ phase.phase.phaseTitle }}</h4>
-                    <div class="well well-sm col-xs-10">
-                        <small>
-                        <div class="row">
-                            <span class="col-xs-2"><strong>Start Date: </strong></span><span class="col-xs-10">{{ phase.startDate | date('Y-M-d H:i:s') }}</span><br>
-
-                        </div>
-                            <div class="row">
-                                <span class="col-xs-2"><strong>End Date: </strong></span><span class="col-xs-10">{{ phase.endDate | date('Y-M-d H:i:s') }}</span></small>
-
-                         </div>
-
-                        {% if phase.notes %}<hr> <div class="row">{{ phase.notes }}</div>{% endif %}
-                    </div>
-                    <div class="col-xs-2">
-                        <a href="{{ path('cb_view_submitted_proposals',{'id':phase.phaseInstanceId}) }}" class="btn btn-default">View Proposals</a>
-                    </div>
-                {% endfor %}
-                <a href="{{ path('cb_add_project_to_cycle',{'id':cycle.grantCycleInstanceId}) }}" class="btn btn-default">Add Project</a>
-            </div>
 
             {% endfor %}
 

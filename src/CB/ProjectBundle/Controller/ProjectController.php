@@ -47,4 +47,22 @@ class ProjectController extends Controller {
             ));
         }
     }
+
+    public function viewAction ($user, $id) {
+        $project = $this->getDoctrine()->getRepository('CBProjectBundle:Project')->find($id);
+
+        if($user == 'proponent') {
+            return $this->render('CBProjectBundle:Proponent:ProjectPermalink.html.twig', array(
+                'project'=>$project
+            ));
+        } else if ($user == 'reviewer' ) {
+            return $this->render('CBProjectBundle:Review:ProjectPermalink.html.twig', array(
+                'project'=>$project
+            ));
+        } else {
+            return $this->render('CBProjectBundle:Default:ProjectPermalink.html.twig', array(
+                'project'=>$project
+            ));
+        }
+    }
 } 

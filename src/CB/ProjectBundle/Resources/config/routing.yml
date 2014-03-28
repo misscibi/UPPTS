@@ -1,3 +1,7 @@
+cb_proponent_project_permalink:
+  pattern: /{user}/project/{id}
+  defaults: { _controller: CBProjectBundle:Project:view }
+
 cb_create_project:
   pattern: /project/create
   defaults: { _controller: CBProjectBundle:Project:create }

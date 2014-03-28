@@ -1,0 +1,44 @@
+{% if instance %}
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+        {% if app.request.attributes.get('user') == 'proponent' %}
+        <a href="#" class="btn btn-default" style="float: right; display:block;">Submit for Review</a>
+        {% endif %}
+
+        <h3>
+        <a href="
+        {% if app.request.attributes.get('user') == 'funder' %}
+            {{ path('cb_phase_instance_permalink',{'user':app.request.attributes.get('user'), 'phase':instance.phaseInstanceId }) }}
+        {% else %}
+            {{ path('cb_phase_instance_permalink',{'user':app.request.attributes.get('user'), 'phase':instance.phaseInstanceId, 'project':app.request.attributes.get('project') }) }}
+        {% endif %}
+        ">{{ phase.phase.phaseTitle }}</a>
+        </h3><hr>
+            <small>
+                <div class="row">
+                    <span class="col-xs-2"><strong>Start Date: </strong></span><span class="col-xs-10">{{ phase.startDate | date('Y-M-d H:i:s') }}</span><br>
+
+                </div>
+                <div class="row">
+                    <span class="col-xs-2"><strong>End Date: </strong></span><span class="col-xs-10">{{ phase.endDate | date('Y-M-d H:i:s') }}</span>
+                </div>
+            </small>
+            {% if phase.notes %}<hr> <div class="row">{{ phase.notes }}</div>{% endif %}
+
+            {% if app.request.attributes.get('user') == 'proponent' %}
+            <div class="well well-sm" style="margin: 25px 0;">
+                {% for source in instance.phase.grantPhaseRequiredDocument %}
+
+                    <a href="#upload">
+                    <strong>{{ source.requiredDocumentsName }}</strong></a> - {{ source.requiredDocumentsDescription }}
+
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endif %}

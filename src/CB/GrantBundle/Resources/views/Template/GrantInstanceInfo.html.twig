@@ -1,0 +1,21 @@
+{% if instance %}
+
+    {% include 'CBGrantBundle:Template:GrantInfo.html.twig' with {'grant':instance.grantCycle.grant} %}
+
+    <small>
+    <div class="row">
+        <div class="col-xs-3"><strong>Priority research areas<br>for this cycle:</strong></div>
+        <div class="col-xs-9">
+
+            {% for area in instance.researchArea %}
+                <span class="margin: 10px 0px;">
+                    {{ area.researchAreaTag }}
+                </span>
+            {% endfor %}
+
+        </div>
+
+    </div>
+    </small>
+
+{% endif %}

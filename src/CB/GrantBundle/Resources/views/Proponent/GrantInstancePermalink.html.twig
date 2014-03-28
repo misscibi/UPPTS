@@ -1,0 +1,35 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <div class="row" style="padding-top: 20px;">
+
+        <!-- Tab panes -->
+        <div class="tab-content col-xs-9">
+            <div class="tab-pane fade in active" id="phases">
+                {% for phase in instance.phaseInstance %}
+
+                    {% include 'CBGrantBundle:Template:PhaseInstanceList.html.twig' with {'instance':phase} %}
+
+                {% endfor %}
+            </div>
+            <div class="tab-pane fade" id="grant">
+                {% include 'CBGrantBundle:Template:GrantInstanceInfo.html.twig' with {'instance':instance} %}
+            </div>
+            <div class="tab-pane fade" id="project">
+                {% include 'CBProjectBundle:Template:ProjectInfo.html.twig' with {'instance':instance} %}
+            </div>
+        </div>
+
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-pills nav-stacked col-xs-3">
+            <li class="active"><a href="#phases" data-toggle="tab">Phases</a></li><hr>
+            <li><a href="#grant" data-toggle="tab">Grant Info</a></li>
+            <li><a href="#project" data-toggle="tab">Project Info</a></li>
+
+        </ul>
+
+    </div>
+
+{% endblock %}

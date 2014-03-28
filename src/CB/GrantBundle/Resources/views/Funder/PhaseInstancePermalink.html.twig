@@ -1,0 +1,27 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <div class="row" style="padding-top: 20px;">
+
+        <!-- Tab panes -->
+        <div class="tab-content col-xs-9">
+            <div class="tab-pane fade in active" id="phases">
+
+            </div>
+            <div class="tab-pane fade" id="info">
+
+            </div>
+        </div>
+
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-pills nav-stacked col-xs-3">
+            <li class="active"><a href="#phases" data-toggle="tab">Phases</a></li>
+            <li><a href="#info" data-toggle="tab">Grant Info</a></li>
+
+        </ul>
+
+    </div>
+
+{% endblock %}

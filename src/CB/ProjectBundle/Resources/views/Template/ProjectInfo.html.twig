@@ -1,0 +1,46 @@
+{% if project %}
+
+    <h1>{{ project.projectTitle }}</h1><br>
+    <small>
+    <div class="row">
+        <div class="col-xs-2">Project Duration (months):</div>
+        <div class="col-xs-10">{{ project.projectDurationMonths }}</div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">Proponents:</div>
+        <div class="col-xs-10">
+            {% for proponent in project.proponent %}
+
+                <span class="margin: 0 5px;">
+                    <a href="#">
+                    {{ proponent.account.firstName }} {{ proponent.account.lastName }}
+                    </a>
+                </span>
+
+                {% endfor %}
+        </div>
+    </div>
+
+    {% if project.projectResearchArea is not empty %}
+    <div class="row">
+        <div class="col-xs-2">Research Areas:</div>
+        <div class="col-xs-10">
+
+            {% for area in project.projectResearchArea %}
+                <span class="margin: 0 5px;">
+                    {{ area.researchAreaTag }}
+                </span>
+            {% endfor %}
+
+        </div>
+    </div>
+
+    {% endif %}
+    </small><hr>
+    <div style="margin: 20px 0;">
+        {{ project.projectDescription }}
+
+    </div>
+
+
+{% endif %}

@@ -1,0 +1,36 @@
+{% if instance %}
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row"><div class="col-xs-12">{{ instance.grantCycle.grantCycleTitle }}</div></div>
+            {% if instance.researchArea is not empty %}
+             <div class="row">
+                 <small>
+                 <div class="col-xs-2"><strong>Research Areas:</strong></div>
+                 <div class="col-xs-10" style="font-style: italic">
+                     {% for area in instance.researchArea %}
+                         <span style="margin: 0 5px;">{{ area.researchAreaTag }}</span>
+                     {% endfor %}
+                 </div>
+                 </small>
+             </div>
+
+            {% endif %}
+
+            {#
+
+                {% for phase in instance.phaseInstance %}
+                        {% include 'CBGrantBundle:Template:PhaseInstanceList.html.twig' with {'instance':phase} %}
+                    <hr>
+                    <div class="row">
+                        <a href="{{ path('cb_view_submitted_proposals',{'id':phase.phaseInstanceId}) }}" class="btn btn-default">View Proposals</a>
+                    </div>
+                {% endfor %}
+                <div class="row">
+                    <a href="{{ path('cb_add_project_to_cycle',{'id':cycle.grantCycleInstanceId}) }}" class="btn btn-default">Add Project</a>
+                </div>
+            #}
+        </div>
+    </div>
+
+{% endif %}

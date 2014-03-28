@@ -1,3 +1,10 @@
+cb_phase_instance_permalink:
+  pattern: /{user}/phase/{phase}/{project}
+  defaults: { _controller: CBGrantBundle:PhaseInstance:view, project: 0 }
+
+cb_grant_instance_permalink:
+  pattern: /{user}/grant/{grant}/{project}
+  defaults: { _controller: CBGrantBundle:GrantInstance:view, project: 0 }
 
 cb_add_project_to_cycle:
   pattern: /grant/{id}/project/add
