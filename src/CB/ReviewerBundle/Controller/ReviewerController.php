@@ -38,10 +38,10 @@ class ReviewerController extends Controller {
             $em->persist($projectObject);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('cb_grant_instance_permalink'), array(
+            return $this->redirect($this->generateUrl('cb_grant_instance_permalink', array(
                 'user'=>'funder',
-                'id'=>$instance,
-            ));
+                'grant'=>$instance,
+            )));
         } else {
             return $this->render('CBMainBundle:Default:CreateForm.html.twig', array(
                 'form'=>$form->createView(),

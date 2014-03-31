@@ -53,16 +53,17 @@ class GrantController extends Controller {
     }
 
     public function addTemplateAction($grant, Request $request) {
-        $grantObject = $this->getDoctrine()->getManager()->getRepository('CBGrantBundle:Grant')->find($grant);
+        $em = $this->getDoctrine()->getManager();
+        $grantObject = $em->getRepository('CBGrantBundle:Grant')->find($grant);
 
         $grantCycle = new GrantCycle();
-        $form = $this->createForm(new GrantTemplate(), $grantCycle);
+        $form = $this->createForm(new GrantCycleType(), $grantCycle);
         $form->handleRequest($request);
 
         if($form->isValid()) {
-            $grantCycle->setGrant($grantObject);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($grantCycle);
+
+            $grantObject->addGrantCycle($grantCycle);
+            $em->persist($grantObject);
             $em->flush();
 
             return $this->redirect($this->generateUrl('cb_grant_permalink', array(
@@ -73,7 +74,7 @@ class GrantController extends Controller {
 
             return $this->render('CBMainBundle:Default:CreateForm.html.twig', array(
                 'form'=>$form->createView(),
-                'title'=>'Create Template For This Grant'
+                'title'=>'Create Template For Grant "'.$grantObject->getGrantName().'"'
             ));
         }
     }

@@ -31,9 +31,10 @@
                               <li class="{% if app.request.attributes.get('_route') == 'cb_dashboard' %}active{% endif %}"><a href="{{ path('cb_dashboard') }}">Dashboard</a></li>
                           {% endif %}
                         <li class="{% if app.request.attributes.get('_route') == 'cb_all_grants' %}active{% endif %}"><a href="{{ path('cb_all_grants') }}">Grants</a></li>
+                          {#
                         <li class="{% if app.request.attributes.get('_route') == '/help' %}active{% endif %}"><a href="/help">Help</a></li>
                         <li class="{% if app.request.attributes.get('_route') == '/about' %}active{% endif %}"><a href="/about">About</a></li>
-                        {#
+
                         <li class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
                           <ul class="dropdown-menu">
@@ -55,7 +56,7 @@
                                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"> {{ app.user.firstName }} <b class="caret"></b></a>
                                   <ul class="dropdown-menu">
                                     <li><a href="{{ path('cb_dashboard') }}">Dashboard</a></li>
-                                    <li><a href="#">Profile</a></li>
+                                    <li><a href="{{ path('cb_profile',{'id':app.user.accountId}) }}">Profile</a></li>
                                     <li class="divider"></li>
                                     <li><a href="{{ path('logout') }}">Log Out</a></li>
                                   </ul>
@@ -73,8 +74,11 @@
                     {% block body %}
                         <div class="row">
                             <div class="col-xs-12">
+                                {#
                                 <a href="#" class="thumbnail" style="background-color: grey; width: 900px; height: 200px; margin:0px auto;">
                                 </a>
+                                #}
+                                <img src="{{ asset('images/logo.png') }}" style="width:1155px; margin-top: -15px;">
                             </div>
                         </div>
                         
@@ -85,7 +89,7 @@
                                 {% if announcements %}
                                 {% for announcement in announcements %}
                                     <h3>{{ announcement.announcementTitle }}</h3>
-                                    <small>Posted on {{ announcement.createTimestamp | date('Y-m-d H:i:s') }} by {{ announcement.account.firstName }} {{ announcement.account.lastName }}</small>
+                                    <small>Posted on {{ announcement.createTimestamp | date('D, d F Y at H:i') }} by {{ announcement.account.firstName }} {{ announcement.account.lastName }}</small>
                                     <div style="padding-top: 10px;">{{ announcement.announcementMessage }}</div>
                                     <hr>
                                 {% endfor %}
@@ -95,8 +99,12 @@
                                 
                             </div>
                             <div class="col-xs-4 well">
-                                <h4>Call for Proposals</h4><hr>
-                                04.05.2014  EIDR Grant
+                                <h4>Available Grants</h4><hr>
+                                {% for grant in grants %}
+                                    <a href="{{ path('cb_grant_permalink', {'user':'proponent', 'id':grant.grantId}) }}">{{ grant.grantName }}
+                                        </a>
+                                        <br>
+                                {% endfor %}
                                 {#
                                 {% if error %}
                                     <div>{{ error.message }}</div>

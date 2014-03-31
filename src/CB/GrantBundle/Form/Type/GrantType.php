@@ -40,8 +40,9 @@ class GrantType extends AbstractType {
                                             'choices'=>$this->grantTypes,
                 ))
                 ->add('grantAmount', 'text', array(
-                                            'label'=>'Grant Amount',
+                                            'label'=>'Grant Amount (pesos)',
                 ))
+        /*
                 ->add('grantBlacklist', 'bootstrap_collection', array(
                                         'label'=>'Grant ID To Be Blacklisted',
                                         'type' => 'grant_selector',
@@ -60,6 +61,7 @@ class GrantType extends AbstractType {
                                         'expanded'=>true,
                                         'mapped' => false,
                 ))
+        */
                 ->add('grantSource', 'bootstrap_collection', array(
                                         'label'=>'Grant Sources',
                                         'type' => new GrantSourcesType(),

@@ -38,7 +38,7 @@ class GrantPhaseRequiredDocument
     /**
      * @var \CB\GrantBundle\Entity\Phase
      *
-     * @ORM\ManyToOne(targetEntity="CB\GrantBundle\Entity\Phase")
+     * @ORM\ManyToOne(targetEntity="CB\GrantBundle\Entity\Phase", inversedBy="grantPhaseRequiredDocument")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="phase_ID", referencedColumnName="phase_ID")
      * })

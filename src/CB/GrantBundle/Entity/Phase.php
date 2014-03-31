@@ -46,7 +46,7 @@ class Phase
     /**
      * @var \CB\GrantBundle\Entity\GrantCycle
      *
-     * @ORM\ManyToOne(targetEntity="CB\GrantBundle\Entity\GrantCycle")
+     * @ORM\ManyToOne(targetEntity="CB\GrantBundle\Entity\GrantCycle", inversedBy="phase")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="grant_cycle_ID", referencedColumnName="grant_cycle_ID")
      * })

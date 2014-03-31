@@ -1,3 +1,7 @@
+cb_profile:
+  pattern: /profile/{id}
+  defaults: {_controller: CBAccountBundle:Account:view }
+
 cb_dashboard:
   pattern: /dashboard
   defaults: {_controller: CBAccountBundle:Dashboard:index}

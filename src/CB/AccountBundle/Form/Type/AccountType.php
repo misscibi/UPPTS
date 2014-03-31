@@ -38,7 +38,9 @@ class AccountType extends AbstractType {
                                         'required' => false,
                 ))
                 ->add('lastName', 'text')
-                ->add('birthdate', 'date')
+                ->add('birthdate', 'date', array(
+                                        'years'=>range(2010, 1900, -1),
+            ))
                 ->add('contactEmail', 'bootstrap_collection', array(
                                         'label' => 'Alternate Email Address',
                                         'type' => new ContactEmailType(),

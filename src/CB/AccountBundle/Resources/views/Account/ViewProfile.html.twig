@@ -2,8 +2,59 @@
 
 {% block body %}
 
+    {% if account %}
     <div class="row">
-        <label class=""
+        <h2>Profile</h2><hr>
     </div>
+    <div class="row">
+        <div class="col-xs-2"><strong>First Name</strong></div>
+        <div class="col-xs-10">{{ account.firstName }}</div>
+    </div>
+        {% if account.middleName %}
+        <div class="row">
+            <div class="col-xs-2"><strong>Middle Name</strong></div>
+            <div class="col-xs-10">{{ account.middleName }}</div>
+        </div>
+            {% endif %}
+        <div class="row">
+            <div class="col-xs-2"><strong>Last Name</strong></div>
+            <div class="col-xs-10">{{ account.lastName }}</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2"><strong>Birth Date</strong></div>
+            <div class="col-xs-10">{{ account.birthdate | date( 'F j, Y' ) }}</div>
+        </div>
+
+        <div class="row" style="margin-top: 40px;">
+        <legend>Contact Information</legend>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2"><strong>Email Addresses</strong></div>
+            <div class="col-xs-10">{% for email in account.contactEmail %}{{ email.emailAddress }}<br>{% endfor %}</div>
+        </div>
+        {% if account.contactPhone is not empty %}<br>
+        <div class="row">
+            <div class="col-xs-2"><strong>Contact Numbers</strong></div>
+            <div class="col-xs-10">{% for number in account.contactPhone %}{{ number.phoneNumber }} ({{ number.type }})<br>{% endfor %}</div>
+        </div>
+            {% endif %}
+        {#
+            {% if account.education is not empty %}
+
+            <div class="row" style="margin-top: 40px;">
+                <legend>Education</legend>
+            </div>
+            <div class="row">
+                <div class="col-xs-2"><strong>Contact Numbers</strong></div>
+                <div class="col-xs-10">{% for number in account.contactPhone %}{{ number.contactPhone }} ({{ number.type }}){% endfor %}</div>
+            </div>
+        {% endif %}
+        #}
+
+
+    {% else %}
+        No account with this id exists.
+    {% endif %}
 
 {% endblock %}

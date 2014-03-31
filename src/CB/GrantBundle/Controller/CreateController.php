@@ -31,13 +31,16 @@ class CreateController extends Controller {
         
         if($form->isValid()) {
             $grant->addFunder($this->getUser());
+
+            /*
             $types = $form['grantBlacklistType']->getData();
             foreach($types as $type) {
                 $btype = new GrantBlacklistType();
                 $btype->setGrantType($type);
                 $grant->addGrantBlacklistType($btype);
             }
-            
+            */
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($grant);
             $em->flush();

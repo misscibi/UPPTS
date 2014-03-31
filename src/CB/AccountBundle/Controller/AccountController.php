@@ -55,7 +55,7 @@ class AccountController extends Controller {
         }
 
         return $this->render('CBAccountBundle:Account:ViewProfile.html.twig', array(
-            'form' => $editForm->createView(),
+            'account'=>$account,
         ));
     }
     

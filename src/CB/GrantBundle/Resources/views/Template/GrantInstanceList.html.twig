@@ -5,13 +5,13 @@
             <div class="row"><div class="col-xs-12">
                 {% if app.request.attributes.get('user') == 'funder' or app.request.attributes.get('_route') == 'cb_project_permalink' %}
                     {% if app.request.attributes.get('funder') %}
-                        <a href="{{ path('cb_grant_instance_permalink',{'grant':instance.grantCycleInstanceId, 'user':'funder'}) }}">{{ instance.grantCycle.grantCycleTitle }}</a>
+                        <a href="{{ path('cb_grant_instance_permalink',{'grant':instance.grantCycleInstanceId, 'user':'funder'}) }}">{{ instance.grantCycle.grantCycleTitle }} - {{ instance.grantCycle.grant.grantName }}</a>
                     {% else %}
-                        <a href="{{ path('cb_grant_instance_permalink',{'grant':instance.grantCycleInstanceId, 'user':app.request.attributes.get('user'), 'project':project.projectId | default(0)}) }}">{{ instance.grantCycle.grantCycleTitle }}</a>
+                        <a href="{{ path('cb_grant_instance_permalink',{'grant':instance.grantCycleInstanceId, 'user':app.request.attributes.get('user'), 'project':project.projectId | default(0)}) }}">{{ instance.grantCycle.grantCycleTitle }} - {{ instance.grantCycle.grant.grantName }}</a>
 
                     {% endif %}
                 {% else %}
-                    <a href="{{ path('cb_add_project_to_cycle',{'id':instance.grantCycleInstanceId}) }}">{{ instance.grantCycle.grantCycleTitle }}</a>
+                    <a href="{{ path('cb_add_project_to_cycle',{'id':instance.grantCycleInstanceId}) }}">{{ instance.grantCycle.grantCycleTitle }} - {{ instance.grantCycle.grant.grantName }}</a>
                 {% endif %}
              </div></div>
              {% if instance.researchArea is not empty %}

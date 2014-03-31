@@ -33,7 +33,7 @@ class DocumentController extends Controller {
             $em->persist($projectDocument);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('cb_phase_instance_permalink', array(
+            return $this->redirect($this->generateUrl('cb_phase_project_permalink', array(
                 'user'=>'proponent',
                 'phase'=>$phase,
                 'project'=>$project,

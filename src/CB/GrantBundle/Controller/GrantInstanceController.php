@@ -206,7 +206,7 @@ class GrantInstanceController extends Controller {
             $em->persist($instance);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('cb_grant_instance', array('id'=>$instance->getGrantCycle()->getGrantCycleId())));
+            return $this->redirect($this->generateUrl('cb_dashboard'));
         } else {
 
             return $this->render('CBMainBundle:Default:CreateForm.html.twig', array(

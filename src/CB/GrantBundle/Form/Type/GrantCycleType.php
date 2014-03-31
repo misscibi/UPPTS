@@ -20,28 +20,31 @@ class GrantCycleType extends AbstractType {
         $builder->add('grantCycleTitle', 'text', array(
                                         'label'=>'Title',
         ))
-                ->add('phase', 'bootstrap_collection', array(
 
-                                            'label' => false,
+                ->add('phase', 'bootstrap_collection', array(
+                                            'label' => 'Phases',
                                             'type' => new PhaseType(),
                                             'add_button_text' => 'Add Phase',
                                             'sub_widget_col' => 10,
                                             'button_col' => 2,
                                             'delete_button_text' => 'Delete',
-                                            'options' => array('attr' => array('class'=>'well bs-component')),
+                                            'prototype_name'     => '__phase__',
+                                            'options' => array(
+                                                'attr' => array('class'=>'well bs-component'),
+                                            ),
                                             'by_reference' => false,
                                             'allow_add' => true,
                                             'allow_delete' => true,
                 ))
 
-                ->add('Submit', 'submit');
+                ->add('Save', 'submit')
+            ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver
             ->setDefaults(array(
-                'data_class' => 'CB\GrantBundle\Entity\GrantCycle',
-                'cascade_validation' => true,
+                'data_class' => 'CB\GrantBundle\Entity\GrantCycle'
             ))
         ;
     }

@@ -23,6 +23,9 @@ class ReviewType extends AbstractType {
             ))
             ->add('reviewDescription', 'textarea', array(
                 'label'=>'Description',
+                /*
+                'attr'=>(array('rows'=>5))
+                */
             ))
             ->add('reviewRating', 'integer', array(
                 'label'=>'Review Rating (10-highest)',

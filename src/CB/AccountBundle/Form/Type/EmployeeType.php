@@ -63,6 +63,7 @@ class EmployeeType extends AbstractType {
                 ->add('endDate', 'date', array(
                                         'label' => 'End Date',
                 ))
+        /*
                 ->add('isUniversityEmployee', 'checkbox', array(
                                         'label' => 'University Employee?',
                                         'attr' => array('align_with_widget'=>true),
@@ -74,7 +75,7 @@ class EmployeeType extends AbstractType {
                                         'attr' => array('class'=>'well bs-component'),
                                         'mapped' => false
                 ))
-                        
+                 */
         ;
     }
     

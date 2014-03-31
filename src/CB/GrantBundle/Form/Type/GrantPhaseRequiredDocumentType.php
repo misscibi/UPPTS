@@ -27,8 +27,7 @@ class GrantPhaseRequiredDocumentType extends AbstractType {
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver
             ->setDefaults(array(
-                'data_class' => 'CB\GrantBundle\Entity\GrantPhaseRequiredDocument',
-                'cascade_validation' => true,
+                'data_class' => 'CB\GrantBundle\Entity\GrantPhaseRequiredDocument'
             ))
         ;
     }
