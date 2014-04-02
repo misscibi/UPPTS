@@ -13,6 +13,9 @@
                             {% include 'CBGrantBundle:Template:GrantInstanceList.html.twig' with {'instance':instance} %}
                         </a>
                     {% endfor %}
+
+                    {% else %}
+                    There are no grants associated with this project.
                 {% endif %}
 
             </div>

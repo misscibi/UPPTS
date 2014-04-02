@@ -9,9 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="employee", indexes={@ORM\Index(name="fk_Employee_Account1_idx", columns={"account_ID"})})
  * @ORM\Entity
- * @ORM\InheritanceType("JOINED")
- * @ORM\DiscriminatorColumn(name="typeOfEmployee", type="string")
- * @ORM\DiscriminatorMap({"employee" = "Employee", "universityEmployee" = "UniversityEmployee"})
  */
 class Employee
 {
@@ -41,9 +38,9 @@ class Employee
     /**
      * @var boolean
      *
-     * @ORM\Column(name="is_permanent", type="boolean", nullable=true)
+     * @ORM\Column(name="nature_of_appointment", type="string", length=45, nullable=true)
      */
-    private $isPermanent;
+    private $natureOfAppointment;
 
     /**
      * @var string
@@ -110,6 +107,16 @@ class Employee
      * })
      */
     private $account;
+
+    /**
+     * @var \CB\AccountBundle\Entity\UniversityEmployee
+     *
+     * @ORM\OneToOne(targetEntity="CB\AccountBundle\Entity\UniversityEmployee", mappedBy="employee", cascade={"ALL"})
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="employment_ID", referencedColumnName="employment_ID")
+     * })
+     */
+    private $universityEmployee;
 
     /**
      * Get employmentId
@@ -418,5 +425,51 @@ class Employee
     public function getAccount()
     {
         return $this->account;
+    }
+
+    /**
+     * Set natureOfAppointment
+     *
+     * @param string $natureOfAppointment
+     * @return Employee
+     */
+    public function setNatureOfAppointment($natureOfAppointment)
+    {
+        $this->natureOfAppointment = $natureOfAppointment;
+
+        return $this;
+    }
+
+    /**
+     * Get natureOfAppointment
+     *
+     * @return string 
+     */
+    public function getNatureOfAppointment()
+    {
+        return $this->natureOfAppointment;
+    }
+
+    /**
+     * Set universityEmployee
+     *
+     * @param \CB\AccountBundle\Entity\UniversityEmployee $universityEmployee
+     * @return Employee
+     */
+    public function setUniversityEmployee(\CB\AccountBundle\Entity\UniversityEmployee $universityEmployee = null)
+    {
+        $this->universityEmployee = $universityEmployee;
+
+        return $this;
+    }
+
+    /**
+     * Get universityEmployee
+     *
+     * @return \CB\AccountBundle\Entity\UniversityEmployee 
+     */
+    public function getUniversityEmployee()
+    {
+        return $this->universityEmployee;
     }
 }

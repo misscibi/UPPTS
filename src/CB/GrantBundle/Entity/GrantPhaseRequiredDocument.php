@@ -35,6 +35,14 @@ class GrantPhaseRequiredDocument
      */
     private $requiredDocumentsDescription;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=100, nullable=true)
+     */
+    private $type;
+
     /**
      * @var \CB\GrantBundle\Entity\Phase
      *

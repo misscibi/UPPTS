@@ -10,9 +10,19 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="university_employee")
  * @ORM\Entity
  */
-class UniversityEmployee extends Employee
+class UniversityEmployee
 {
-    
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="employment_ID", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $employmentId;
+
+
     /**
      * @var string
      *
@@ -33,7 +43,6 @@ class UniversityEmployee extends Employee
      * @ORM\Column(name="academic_experience", type="string", length=10000, nullable=true)
      */
     private $academicExperience;
-
 
 
     /**
@@ -105,4 +114,60 @@ class UniversityEmployee extends Employee
         return $this->academicExperience;
     }
     
+
+    /**
+     * Get employmentId
+     *
+     * @return integer 
+     */
+    public function getEmploymentId()
+    {
+        return $this->employmentId;
+    }
+
+    /**
+     * Set employmentId
+     *
+     * @param integer $employmentId
+     * @return UniversityEmployee
+     */
+    public function setEmploymentId($employmentId)
+    {
+        $this->employmentId = $employmentId;
+
+        return $this;
+    }
+
+    /**
+     * Set employee
+     *
+     * @param \CB\AccountBundle\Entity\Employee $employee
+     * @return UniversityEmployee
+     */
+    public function setEmployee(\CB\AccountBundle\Entity\Employee $employee = null)
+    {
+        $this->employee = $employee;
+
+        return $this;
+    }
+
+    /**
+     * Get employee
+     *
+     * @return \CB\AccountBundle\Entity\Employee 
+     */
+    public function getEmployee()
+    {
+        return $this->employee;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }

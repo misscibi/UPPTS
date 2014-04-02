@@ -16,7 +16,7 @@
 
     </small>
 
-    <div class="row" style="margin:30px auto;">{{ grant.grantDescription }}</div>
+    <div class="row" style="margin:30px auto;">{{ grant.grantDescription | nl2br }}</div>
 
     {% if grant.grantSource is not empty %}
         <div class="row well">

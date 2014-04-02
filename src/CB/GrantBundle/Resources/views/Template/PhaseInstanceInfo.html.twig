@@ -18,11 +18,20 @@
     <div class="well well-sm" style="margin: 25px 0;">
         {% for source in instance.phase.grantPhaseRequiredDocument %}
 
-            <strong>{% if app.request.attributes.get('user') == 'proponent' %}
-                    <a href="#upload">
-                {{ source.requiredDocumentsName }}</a>
+            {% if app.request.attributes.get('user') == 'proponent' %}
+                <strong>
+                        {% set c = 0 %}
+                        {% for document in project.projectDocuments %}
+                            {% if document.phaseInstance == instance and document.grantDocument == source %}
+                                <a href="{{ asset(document.getWebPath) }}">{{ source.requiredDocumentsName }}</a>
+                                {% set c = c + 1 %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if c == 0 %}{{ source.requiredDocumentsName }}{% endif %}
+                    </strong> - {{ source.requiredDocumentsDescription }} {% if c == 0 %}(<a href="{{ path('cb_proponent_upload_document', {'phase':instance.phaseInstanceId, 'project':app.request.attributes.get('project'), 'document':source.grantDocumentId}) }}">Upload</a>){% endif %}
+
             {% elseif app.request.attributes.get('_route') == 'cb_phase_project_permalink' %}
-                <a href="
+                <strong> <a href="
                     {% for document in project.projectDocuments %}
 
                         {% if document.grantDocument == source %}
@@ -31,10 +40,9 @@
                     {% endfor %}
 
                     ">
-                {{ source.requiredDocumentsName }}</a>
-            {% else %}{{ source.requiredDocumentsName }}
+                {{ source.requiredDocumentsName }}</a></strong> - {{ source.requiredDocumentsDescription }}
+            {% else %}<strong>{{ source.requiredDocumentsName }}</strong> - {{ source.requiredDocumentsDescription }}
                 {% endif %}
-            </strong>- {{ source.requiredDocumentsDescription }}
             <br>
         {% endfor %}
     </div>

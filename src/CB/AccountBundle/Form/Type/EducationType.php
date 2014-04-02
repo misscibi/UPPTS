@@ -37,6 +37,7 @@ class EducationType extends AbstractType {
                 ))
                 ->add('graduationDate', 'date', array(
                                         'label' => 'Graduation Date',
+                                        'years'=>range(date("Y"), date("Y")-100, -1),
                 ))
                 ->add('academicExperience', 'textarea', array(
                                         'label' => 'Other Academic Experience',

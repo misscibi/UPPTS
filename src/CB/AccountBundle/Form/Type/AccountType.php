@@ -39,7 +39,7 @@ class AccountType extends AbstractType {
                 ))
                 ->add('lastName', 'text')
                 ->add('birthdate', 'date', array(
-                                        'years'=>range(2010, 1900, -1),
+                                        'years'=>range(date("Y"), date("Y")-100, -1),
             ))
                 ->add('contactEmail', 'bootstrap_collection', array(
                                         'label' => 'Alternate Email Address',
@@ -69,8 +69,8 @@ class AccountType extends AbstractType {
                                         'label' => false,
                                         'type' => new EducationType(),
                                         'add_button_text' => 'Add Education',
-                                        'sub_widget_col' => 10,
-                                        'button_col' => 2,
+                                        'sub_widget_col' => 11,
+                                        'button_col' => 1,
                                         'delete_button_text' => 'Delete',
                                         'options' => array('attr' => array('class'=>'well bs-component')),
                                         'by_reference' => false,
@@ -81,8 +81,8 @@ class AccountType extends AbstractType {
                                         'label' => false,
                                         'type' => new EmployeeType(),
                                         'add_button_text' => 'Add Employee Profile',
-                                        'sub_widget_col' => 10,
-                                        'button_col' => 2,
+                                        'sub_widget_col' => 11,
+                                        'button_col' => 1,
                                         'delete_button_text' => 'Delete',
                                         'options' => array('attr' => array('class'=>'well bs-component')),
                                         'by_reference' => false,
@@ -93,10 +93,9 @@ class AccountType extends AbstractType {
                                         'label' => false,
                                         'type' => new AcademicExperienceType(),
                                         'add_button_text' => 'Add Other Academic Experiences',
-                                        'sub_widget_col' => 10,
-                                        'button_col' => 2,
+                                        'sub_widget_col' => 11,
+                                        'button_col' => 1,
                                         'delete_button_text' => 'Delete',
-                                        'options' => array('attr' => array('class'=>'well bs-component')),
                                         'by_reference' => false,
                                         'allow_add' => true,
                                         'allow_delete' => true,

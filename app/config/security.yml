@@ -36,7 +36,8 @@ security:
             form_login:
                 check_path: login_check
                 login_path: login
-                failure_path: login_failure
+                always_use_default_target_path: true
+                default_target_path: /dashboard
             logout:
                 path:   /logout
                 target: /

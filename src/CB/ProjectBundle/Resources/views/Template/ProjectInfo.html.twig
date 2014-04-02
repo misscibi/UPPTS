@@ -3,8 +3,8 @@
     <h1>{{ project.projectTitle }}</h1><br>
     <small>
     <div class="row">
-        <div class="col-xs-2">Project Duration (months):</div>
-        <div class="col-xs-10">{{ project.projectDurationMonths }}</div>
+        <div class="col-xs-2">Project Duration:</div>
+        <div class="col-xs-10">{{ project.projectDurationMonths }} months</div>
     </div>
     <div class="row">
         <div class="col-xs-2">Proponents:</div>
@@ -12,7 +12,7 @@
             {% for proponent in project.proponent %}
 
                 <span class="margin: 0 5px;">
-                    <a href="#">
+                    <a href="{{ path('cb_profile',{'id':proponent.account.accountId }) }}">
                     {{ proponent.account.firstName }} {{ proponent.account.lastName }}
                     </a>
                 </span>

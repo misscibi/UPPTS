@@ -10,8 +10,11 @@
                         <a href="{{ path('cb_grant_instance_permalink',{'grant':instance.grantCycleInstanceId, 'user':app.request.attributes.get('user'), 'project':project.projectId | default(0)}) }}">{{ instance.grantCycle.grantCycleTitle }} - {{ instance.grantCycle.grant.grantName }}</a>
 
                     {% endif %}
-                {% else %}
+                {% elseif app.user %}
                     <a href="{{ path('cb_add_project_to_cycle',{'id':instance.grantCycleInstanceId}) }}">{{ instance.grantCycle.grantCycleTitle }} - {{ instance.grantCycle.grant.grantName }}</a>
+                {% else %}
+                    <a href="{{ path('login') }}">{{ instance.grantCycle.grantCycleTitle }} - {{ instance.grantCycle.grant.grantName }}</a>
+
                 {% endif %}
              </div></div>
              {% if instance.researchArea is not empty %}

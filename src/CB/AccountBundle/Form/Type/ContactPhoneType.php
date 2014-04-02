@@ -23,7 +23,7 @@ class ContactPhoneType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('type', 'choice', array(
-                                        'choices' => array('Telephone'=>'Telephone', 'Mobile'=>'Mobile', 'Fax'=>'Fax' ),
+                                        'choices' => array('Mobile'=>'Mobile','Telephone'=>'Telephone',  'Fax'=>'Fax' ),
                                         'label' => false,
                                         'attr' => array('widget_col'=>3)
                 ))

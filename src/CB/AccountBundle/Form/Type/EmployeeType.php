@@ -22,16 +22,10 @@ class EmployeeType extends AbstractType {
     
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('isPermanent', 'checkbox', array(
-                                        'label' => 'Permanent Employee?',
-                                        'attr' => array('align_with_widget'=>true),
-                                        'required' => false,
-                ))
-                ->add('workingUpToPresent', 'checkbox', array(
-                                        'mapped' => false,
-                                        'label' => 'Working up to present?',
-                                        'attr' => array('align_with_widget'=>true),
-                                        'required' => false,
+                ->add('natureOfAppointment', 'choice', array(
+                                        'label' => 'Nature of Appointment',
+                                        'choices' => array('Permanent'=>'Permanent',
+                                                        'Temporary'=>'Temporary'),
                 ))
                 ->add('type', 'text', array(
                                         'label' => 'Type',
@@ -59,23 +53,18 @@ class EmployeeType extends AbstractType {
                 ))
                 ->add('startDate', 'date', array(
                                         'label' => 'Start Date',
+                                        'years'=>range(date("Y"), date("Y")-100, -1),
                 ))
                 ->add('endDate', 'date', array(
                                         'label' => 'End Date',
-                ))
-        /*
-                ->add('isUniversityEmployee', 'checkbox', array(
-                                        'label' => 'University Employee?',
-                                        'attr' => array('align_with_widget'=>true),
-                                        'required' => false,
-                                        'mapped' => false
+                                        'years'=>range(date("Y"), date("Y")-100, -1),
+                                        'required'=>false,
+                                        'empty_data'=>null,
                 ))
                 ->add('universityEmployee', new UniversityEmployeeType(), array(
-                                        'label' => false,
-                                        'attr' => array('class'=>'well bs-component'),
-                                        'mapped' => false
+                                        'label' => 'University Employee',
+                                        'required'=>false,
                 ))
-                 */
         ;
     }
     

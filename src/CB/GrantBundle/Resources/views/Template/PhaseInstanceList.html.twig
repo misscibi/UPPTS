@@ -41,7 +41,7 @@
                         {% endfor %}
                         {% if c == 0 %}{{ source.requiredDocumentsName }}{% endif %}
                     </strong> - {{ source.requiredDocumentsDescription }} {% if c == 0 %}(<a href="{{ path('cb_proponent_upload_document', {'phase':instance.phaseInstanceId, 'project':app.request.attributes.get('project'), 'document':source.grantDocumentId}) }}">Upload</a>){% endif %}
-
+                    <br>
                 {% endfor %}
             </div>
             {% endif %}
