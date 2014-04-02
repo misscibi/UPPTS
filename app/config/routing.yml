@@ -1,7 +1,3 @@
-cb_test:
-    resource: "@CBTestBundle/Resources/config/routing.yml"
-    prefix:   /
-
 cb_admin:
     resource: "@CBAdminBundle/Resources/config/routing.yml"
     prefix:   /
